@@ -1,5 +1,6 @@
 <template>
 <div class="xlsx-view">
+  Xlsx Convert
 </div>
 </template>
 
@@ -16,10 +17,5 @@ export default {
 
 <style scoped>
 .xlsx-view {
-  background-color: rgb(215, 215, 215);
-  /* float: right; */
-  /* height: 80vh; */
-  /* width: 50%; */
-  flex-grow: 1;
 }
 </style>

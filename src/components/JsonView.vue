@@ -1,5 +1,6 @@
 <template>
 <div class="json-view">
+  Json Convert
 </div>
 </template>
 
@@ -16,10 +17,5 @@ export default {
 
 <style scoped>
 .json-view {
-  /* float: right; */
-  background-color: rgb(121, 121, 121);
-  /* height: 80vh; */
-  flex-grow: 1;
-  /* width: 50%; */
 }
 </style>
