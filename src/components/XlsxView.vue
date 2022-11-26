@@ -1,6 +1,6 @@
 <template>
 <div class="xlsx-view">
-  Xlsx Convert
+  <h3 class="xlsx-title">XLSX</h3>
 </div>
 </template>
 
@@ -16,6 +16,13 @@ export default {
 </script>
 
 <style scoped>
+.xlsx-title {
+  width: 100%;
+}
 .xlsx-view {
+  border: solid black;
+  background-color: rgb(164, 164, 164);
+  width: 100%;
+  height: 80vh;
 }
 </style>
