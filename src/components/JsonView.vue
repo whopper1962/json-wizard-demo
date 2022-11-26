@@ -6,7 +6,6 @@
     class="json-contents-outer"
   >
     <div class="json-contents-inner">
-
     </div>
   </div>
   <div
