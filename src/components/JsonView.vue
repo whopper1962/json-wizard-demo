@@ -1,14 +1,27 @@
 <template>
 <div class="json-view">
   <h3 class="json-title">JSON</h3>
-  <div class="file-input-form">
+  <div
+    v-if="converted"
+    class="json-contents-outer"
+  >
+    <div class="json-contents-inner">
+
+    </div>
+  </div>
+  <div
+    v-else
+    class="file-input-form"
+  >
     <input
       type="file"
       accept=".json"
     >
     <div class="convert-button">
-      <button @click="convert()">
-        Convert!
+      <button
+        @click="convert()"
+      >
+        Convert
       </button>
     </div>
   </div>
@@ -18,7 +31,9 @@
 <script>
 export default {
   data () {
-    return {};
+    return {
+      converted: true
+    };
   },
   props: {},
   created () {},
@@ -32,9 +47,11 @@ export default {
 
 <style scoped>
 .json-title {
+  font-family: 'Marker Felt';
   width: 100%;
 }
 .json-view {
+  border-radius: 10px;
   border: solid black;
   background-color: rgb(164, 164, 164);
   width: 100%;
@@ -52,6 +69,15 @@ export default {
   vertical-align: middle;
 }
 .convert-button {
-  margin-top: 2%;
+  margin-top: 4%;
+}
+.json-contents-outer {
+  height: 90%;
+  padding: 10px;
+}
+.json-contents-inner {
+  border: solid black;
+  background-color: rgb(118, 117, 117);
+  height: 99%;
 }
 </style>

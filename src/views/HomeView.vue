@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="converter-file-form">
+    <div class="converter-title">
       <h3>XLSX JSON Converter</h3>
       <p>Created by @whopper1962</p>
     </div>
@@ -38,6 +38,9 @@ export default {
 </script>
 
 <style scoped>
+.converter-title {
+  font-family: 'Marker Felt';
+}
 .xlsx-json-contents {
   display: table;
   width: 100%;

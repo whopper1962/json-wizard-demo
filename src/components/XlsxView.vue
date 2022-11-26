@@ -1,14 +1,27 @@
 <template>
 <div class="xlsx-view">
   <h3 class="xlsx-title">XLSX</h3>
-  <div class="file-input-form">
+  <div
+    v-if="converted"
+    class="xlsx-contents-outer"
+  >
+    <div class="xlsx-contents-inner">
+
+    </div>
+  </div>
+  <div
+    v-else
+    class="file-input-form"
+  >
     <input
       type="file"
       accept=".xls,.xlsx"
     >
     <div class="convert-button">
-      <button @click="convert()">
-        Convert!
+      <button
+        @click="convert()"
+      >
+        Convert
       </button>
     </div>
   </div>
@@ -18,7 +31,9 @@
 <script>
 export default {
   data () {
-    return {};
+    return {
+      converted: true
+    };
   },
   props: {},
   created () {},
@@ -32,9 +47,11 @@ export default {
 
 <style scoped>
 .xlsx-title {
+  font-family: 'Marker Felt';
   width: 100%;
 }
 .xlsx-view {
+  border-radius: 10px;
   position: relative;
   border: solid black;
   background-color: rgb(164, 164, 164);
@@ -53,6 +70,15 @@ export default {
   vertical-align: middle;
 }
 .convert-button {
-  margin-top: 2%;
+  margin-top: 4%;
+}
+.xlsx-contents-outer {
+  height: 90%;
+  padding: 10px;
+}
+.xlsx-contents-inner {
+  border: solid black;
+  background-color: rgb(118, 117, 117);
+  height: 99%;
 }
 </style>
