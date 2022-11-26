@@ -7,12 +7,12 @@
     <div class="xlsx-json-contents">
       <div class="split-item split-item-outer">
         <div class="split-item-inner">
-          <JsonView />
+          <XlsxView />
         </div>
       </div>
       <div class="split-item split-item-outer">
         <div class="split-item-inner">
-          <XlsxView />
+          <JsonView />
         </div>
       </div>
     </div>
