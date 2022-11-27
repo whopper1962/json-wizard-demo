@@ -6,6 +6,9 @@
     class="json-contents-outer"
   >
     <div class="json-contents-inner">
+      <div class="json-data-area">
+        <button @click="copyJsonToClipbord()">Copy to clipboard</button>
+      </div>
       <div class="json-display-area">
         <pre>{{ json }}</pre>
       </div>
@@ -50,6 +53,20 @@ export default {
     }
   },
   methods: {
+    copyJsonToClipbord () {
+      const jsonToCopy = JSON.stringify(
+        JSON.parse(this.json),
+        null,
+        4
+      );
+      navigator.clipboard.writeText(jsonToCopy)
+      .then(() => {
+        console.log("Copied!");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    },
     convert () {
       console.log('JSON Convert!');
     }
@@ -94,12 +111,16 @@ export default {
 }
 .json-display-area {
   font-family: 'Menlo', sans-serif;
-  height: 85%;
+  height: 80%;
   margin: 20px;
   background-color: rgb(31, 30, 30);
   color: white;
   padding: 20px;
   text-align: left;
   overflow-y: auto;
+}
+.json-data-area {
+  margin: 20px;
+  text-align: left;
 }
 </style>
