@@ -8,20 +8,23 @@
     <div class="xlsx-contents-inner">
       <div class="xlsx-convertion-data-area">
         <table
-          v-if="keyOrders.length > 0 || valueIndex !== null"
           class="xlsx-convertion-data-table"
           border="5"
         >
           <tr>
+            <th v-if="keyOrders.length === 0">Key1</th>
             <th
               v-for="(column, index) in keyOrders"
               :key="`column_${index}`"
             >
               Key{{ index + 1 }}
             </th>
-            <th class="bkc-other" v-if="valueIndex !== null">Value</th>
+            <th class="bkc-other">Value</th>
           </tr>
           <tr>
+            <td v-if="keyOrders.length === 0">
+              Select column
+            </td>
             <td
               v-for="(column, index) in keyOrders"
               :key="`column_${index}`"
@@ -29,6 +32,7 @@
               Column{{ column + 1 }}
             </td>
             <td v-if="valueIndex !== null">Column{{ valueIndex + 1 }}</td>
+            <td v-else>Select column</td>
           </tr>
         </table>
         <button
@@ -41,7 +45,10 @@
           @click="initXlsxForm()"
         >
           Select other file
-        </button>
+        </button><br/>
+        <div v-if="duplicatesError" class="file-format-error">
+          ❗️Duplicated key detected! Please check highlighted rows and execute again.
+        </div>
       </div>
       <div class="sticky-table">
         <table class="xlsx-table" border="5">
@@ -147,7 +154,8 @@ export default {
       keyOrders: [],
       valueIndex: null,
       keyOrderArr: [],
-      duplicates: []
+      duplicates: [],
+      duplicatesError: false
     };
   },
   props: {},
@@ -180,6 +188,8 @@ export default {
       this.maxLength = null;
       this.keyOrderArr = [];
       this.valueIndex = null;
+      this.duplicates = [];
+      this.duplicatesError = false;
     },
     orderChecked (index) {
       const foundIndex = this.keyOrders.indexOf(index);
@@ -202,6 +212,7 @@ export default {
     },
     execConvertion () {
       this.duplicates = [];
+      this.duplicatesError = false;
       try {
         xlsxJsonConverter({
           parentKeys: this.keyOrders,
@@ -214,6 +225,7 @@ export default {
             this.keyDuplicated = true;
             this.duplicates = error.body;
             this.duplicates.splice();
+            this.duplicatesError = true;
           }
         }
         // this.isValidFileFormat = false;
@@ -232,7 +244,7 @@ export default {
   font-family: 'Menlo', sans-serif;
   width: 100%;
   background-color: white;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 .xlsx-convertion-data-table th {
   background-color: rgb(116, 190, 104);
@@ -257,7 +269,12 @@ export default {
   vertical-align: middle;
 }
 .file-format-error {
-  color: rgb(225, 78, 78);
+  margin: 5px;
+  padding: 5px;
+  background-color: white !important;
+  font-family: 'Menlo', sans-serif;
+  border: solid black !important;
+  color: rgb(255, 52, 52);
 }
 .convert-button {
   margin-top: 4%;
@@ -287,7 +304,7 @@ export default {
 .sticky-table {
   position: relative;
   overflow-y: auto;
-  height: 85%;
+  height: 80%;
 }
 .sticky-table table {
   border: 1px solid #DDD;
@@ -312,8 +329,6 @@ export default {
 }
 .bkc-other {
   background-color: rgb(228, 224, 0) !important;
-}
-.error-row {
 }
 .error-row td {
   background-color: rgb(255, 122, 122) !important;

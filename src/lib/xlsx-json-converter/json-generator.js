@@ -47,7 +47,6 @@ module.exports = class JsonGenerator {
     if (duplicates.length > 0) {
       const duplicatesindex = [];
       for (const duplicate of duplicates) {
-        console.error(this.orderedKeyValues.entries())
         for (const [index, keys] of this.orderedKeyValues.entries()) {
           if (JSON.stringify(keys) !== JSON.stringify(duplicate)) continue;
           duplicatesindex.push(index);
