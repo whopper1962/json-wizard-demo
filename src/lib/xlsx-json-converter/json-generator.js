@@ -19,9 +19,11 @@ module.exports = class JsonGenerator {
       let masterObj = this.json;
       for (const [keyIndex, currentKey] of keys.entries()) {
         if (keyIndex === keys.length - 1) {
+          if (currentKey === null) throw new Error('Master key cannot be null!');
           if (isKeyExists(masterObj, currentKey)) throw new Error('Key duplicated!');
           masterObj[currentKey] = this.contents[index][this.valueIndex];
         } else {
+          if (currentKey === null) continue;
           if (!isKeyExists(masterObj, currentKey)) {
             masterObj[currentKey] = {};
           }

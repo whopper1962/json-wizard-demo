@@ -46,7 +46,6 @@ export default {
       }
     },
     converted () {
-      console.error(this.json);
       return Object.keys(JSON.parse(this.json)).length > 0;
     }
   },
