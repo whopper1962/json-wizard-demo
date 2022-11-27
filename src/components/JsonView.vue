@@ -6,13 +6,16 @@
     class="json-contents-outer"
   >
     <div class="json-contents-inner">
+      <div class="json-display-area">
+        <pre>{{ json }}</pre>
+      </div>
     </div>
   </div>
   <div
     v-else
     class="file-input-form"
   >
-    <input
+    <!-- <input
       type="file"
       accept=".json"
     >
@@ -22,7 +25,7 @@
       >
         Convert
       </button>
-    </div>
+    </div> -->
   </div>
 </div>
 </template>
@@ -31,11 +34,22 @@
 export default {
   data () {
     return {
-      converted: true
     };
   },
   props: {},
   created () {},
+  computed: {
+    json: {
+      get () {
+        const unformatted = this.$store.getters['getJson'];
+        return JSON.stringify(unformatted, null, 6);
+      }
+    },
+    converted () {
+      console.error(this.json);
+      return Object.keys(JSON.parse(this.json)).length > 0;
+    }
+  },
   methods: {
     convert () {
       console.log('JSON Convert!');
@@ -78,5 +92,15 @@ export default {
   border: solid black;
   background-color: rgb(118, 117, 117);
   height: 99%;
+}
+.json-display-area {
+  font-family: 'Menlo', sans-serif;
+  height: 85%;
+  margin: 20px;
+  background-color: rgb(31, 30, 30);
+  color: white;
+  padding: 20px;
+  text-align: left;
+  overflow-y: auto;
 }
 </style>

@@ -219,7 +219,7 @@ export default {
           valueIndex: this.valueIndex,
           contents: this.selectedFile
         });
-        console.error(generatedJson);
+        this.$store.dispatch('setJson', generatedJson);
       } catch (error) {
         switch (error.status) {
           case 428: {
