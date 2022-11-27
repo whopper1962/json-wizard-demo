@@ -15,14 +15,21 @@
   >
     <input
       type="file"
-      accept=".xls,.xlsx"
+      accept=".xls,.xlsx,.csv"
     >
     <div class="convert-button">
       <button
         @click="convert()"
+        :disabled="!isFileInputed || !isValidFileFormat"
       >
         Convert
       </button>
+      <p
+        v-if="!isValidFileFormat"
+        class="file-format-error"
+      >
+        Invalid file format.
+      </p>
     </div>
   </div>
 </div>
@@ -32,7 +39,9 @@
 export default {
   data () {
     return {
-      converted: true
+      converted: false,
+      isFileInputed: false,
+      isValidFileFormat: true
     };
   },
   props: {},
@@ -68,6 +77,9 @@ export default {
   width: 80%;
   height: 3.2rem;
   vertical-align: middle;
+}
+.file-format-error {
+  color: rgb(225, 78, 78);
 }
 .convert-button {
   margin-top: 4%;
