@@ -10,13 +10,24 @@ module.exports = class JsonGenerator {
       for (const keyIndex of this.parents) {
         valueArr.push(row[keyIndex]);
       }
-      // valueArr.push(row[this.valueIndex]);
       this.orderedKeys.push(valueArr);
     }
   }
 
   generate() {
-    for (const keyIndex of this.orderedKeys) {
+    for (const [index, keys] of this.orderedKeys.entries()) {
+      let masterObj = this.json;
+      for (const [keyIndex, currentKey] of keys.entries()) {
+        if (keyIndex === keys.length - 1) {
+          if (isKeyExists(masterObj, currentKey)) throw new Error('Key duplicated!');
+          masterObj[currentKey] = this.contents[index][this.valueIndex];
+        } else {
+          if (!isKeyExists(masterObj, currentKey)) {
+            masterObj[currentKey] = {};
+          }
+          masterObj = masterObj[currentKey];
+        }
+      }
     }
   }
 
@@ -58,3 +69,8 @@ module.exports = class JsonGenerator {
     }
   }
 };
+
+function isKeyExists(object, key) {
+  if (object[key] === undefined) return false;
+  return true;
+}

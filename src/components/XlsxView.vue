@@ -214,11 +214,12 @@ export default {
       this.duplicates = [];
       this.duplicatesError = false;
       try {
-        xlsxJsonConverter({
+        const generatedJson = xlsxJsonConverter({
           parentKeys: this.keyOrders,
           valueIndex: this.valueIndex,
           contents: this.selectedFile
         });
+        console.error(generatedJson);
       } catch (error) {
         switch (error.status) {
           case 428: {

@@ -1,4 +1,3 @@
-const formatChecker = require('../format-checker');
 const JsonGenerator = require('./json-generator');
 
 module.exports = function (xlsxObj) {
@@ -8,20 +7,6 @@ module.exports = function (xlsxObj) {
     status: 428,
     body: duplicates
   };
-  console.error('PASS!!');
+  jsonGenerator.generate();
+  return jsonGenerator.json;
 };
-
-// function checkFormat (xlsxObj) {
-//   if (xlsxObj) {
-//   } else {
-//     formatChecker.checkJsonFormat(xlsxObj);
-//   }
-// }
-
-function formatXlsxObj (xlsxObj) {
-  // for (const row of xlsxObj) {
-  //   console.error(row);
-  // }
-}
-
-function generateJson () {}
