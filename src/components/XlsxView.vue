@@ -7,6 +7,36 @@
   >
     <div class="xlsx-contents-inner">
       <div class="xlsx-convertion-data-area">
+        <table
+          v-if="keyOrders.length > 0 || valueIndex !== null"
+          class="xlsx-convertion-data-table"
+          border="5"
+        >
+          <tr>
+            <th
+              v-for="(column, index) in keyOrders"
+              :key="`column_${index}`"
+            >
+              Key{{ index + 1 }}
+            </th>
+            <th class="bkc-other" v-if="valueIndex !== null">Value</th>
+          </tr>
+          <tr>
+            <td
+              v-for="(column, index) in keyOrders"
+              :key="`column_${index}`"
+            >
+              Column{{ column + 1 }}
+            </td>
+            <td v-if="valueIndex !== null">Column{{ valueIndex + 1 }}</td>
+          </tr>
+        </table>
+        <button
+          :disabled="keyOrders.length == 0 || valueIndex === null"
+          @click="execConvertion()"
+        >
+          Exec convertion
+        </button>
         <button
           @click="initXlsxForm()"
         >
@@ -43,11 +73,20 @@
             </label>
           </td>
         </tr>
+        <tr>
+          <th
+            v-for="num of maxLength"
+            :key="`num_${num}`"
+          >
+            Column{{ num }}
+          </th>
+        </tr>
         <tr
           v-for="(row, index) in selectedFile"
           :key="`row_${index}`"
         >
           <td
+            class="background-color-white"
             v-for="(val, index) in row"
             :key="`val_${index}`"
           >
@@ -127,6 +166,9 @@ export default {
       this.converted = false;
       this.isValidFileFormat = true;
       this.isFileInputed = false;
+      this.keyOrders = [];
+      this.maxLength = null;
+      this.keyOrderArr = [];
     },
     orderChecked (index) {
       const foundIndex = this.keyOrders.indexOf(index);
@@ -146,6 +188,8 @@ export default {
     },
     convert () {
       this.converted = true;
+    },
+    execConvertion () {
       try {
         xlsxJsonConverter(this.selectedFile);
       } catch {
@@ -161,6 +205,15 @@ export default {
 .xlsx-title {
   font-family: 'Marker Felt';
   width: 100%;
+}
+.xlsx-convertion-data-table {
+  font-family: 'Menlo', sans-serif;
+  width: 100%;
+  background-color: white;
+  margin-bottom: 5px;
+}
+.xlsx-convertion-data-table th {
+  background-color: rgb(116, 190, 104);
 }
 .xlsx-view {
   border-radius: 10px;
@@ -202,6 +255,20 @@ export default {
   width: 100%;
   background-color: rgb(189, 189, 189);
 }
+.xlsx-table th {
+  background-color: rgb(116, 190, 104);
+}
 .xlsx-convertion-data-area {
+  margin: 5px;
+  text-align: left;
+}
+.xlsx-convertion-data-area button {
+  margin-right: 10px;
+}
+.background-color-white {
+  background-color: white;
+}
+.bkc-other {
+  background-color: rgb(237, 237, 102) !important;
 }
 </style>
