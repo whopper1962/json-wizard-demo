@@ -88,8 +88,9 @@
           </thead>
           <tbody>
             <tr
-              v-for="(row, index) in selectedFile"
-              :key="`row_${index}`"
+              v-for="(row, rowIndex) in selectedFile"
+              :key="`row_${rowIndex}`"
+              :class="{'error-row': duplicates.includes(rowIndex)}"
             >
               <td
                 class="background-color-white"
@@ -145,7 +146,8 @@ export default {
       selectedFile: [],
       keyOrders: [],
       valueIndex: null,
-      keyOrderArr: []
+      keyOrderArr: [],
+      duplicates: []
     };
   },
   props: {},
@@ -199,11 +201,22 @@ export default {
       this.converted = true;
     },
     execConvertion () {
+      this.duplicates = [];
       try {
-        xlsxJsonConverter(this.selectedFile);
-      } catch {
-        console.error('Failed to convert!');
-        this.isValidFileFormat = false;
+        xlsxJsonConverter({
+          parentKeys: this.keyOrders,
+          valueIndex: this.valueIndex,
+          contents: this.selectedFile
+        });
+      } catch (error) {
+        switch (error.status) {
+          case 428: {
+            this.keyDuplicated = true;
+            this.duplicates = error.body;
+            this.duplicates.splice();
+          }
+        }
+        // this.isValidFileFormat = false;
       }
     }
   }
@@ -299,5 +312,10 @@ export default {
 }
 .bkc-other {
   background-color: rgb(228, 224, 0) !important;
+}
+.error-row {
+}
+.error-row td {
+  background-color: rgb(255, 122, 122) !important;
 }
 </style>
