@@ -35,7 +35,7 @@
           :disabled="keyOrders.length == 0 || valueIndex === null"
           @click="execConvertion()"
         >
-          Exec convertion
+          Execute convertion
         </button>
         <button
           @click="initXlsxForm()"
@@ -43,57 +43,65 @@
           Select other file
         </button>
       </div>
-      <table class="xlsx-table" border="5">
-        <tr>
-          <td
-            v-for="(num, index) in keyOrderArr"
-            :key="`num_${index}`"
-          >
-            <label>
-              <input
-                type="checkbox"
-                :disabled="index === valueIndex"
-                v-model="keyOrderArr[index]"
-                @change="orderChecked(index)"
-              />Add to keys
-            </label>
-          </td>
-        </tr>
-        <tr>
-          <td
-            v-for="num of maxLength"
-            :key="`num_${num}`"
-          >
-            <label>
-              <input
-                type="radio"
-                name="value"
-                @change="valueChecked(num - 1)"
-              />Value
-            </label>
-          </td>
-        </tr>
-        <tr>
-          <th
-            v-for="num of maxLength"
-            :key="`num_${num}`"
-          >
-            Column{{ num }}
-          </th>
-        </tr>
-        <tr
-          v-for="(row, index) in selectedFile"
-          :key="`row_${index}`"
-        >
-          <td
-            class="background-color-white"
-            v-for="(val, index) in row"
-            :key="`val_${index}`"
-          >
-            {{ val }}
-          </td>
-        </tr>
-      </table>
+      <div class="sticky-table">
+        <table class="xlsx-table" border="5">
+          <thead>
+            <tr>
+              <td
+                class="bgc-data"
+                v-for="(num, index) in keyOrderArr"
+                :key="`num_${index}`"
+              >
+                <label>
+                  <input
+                    type="checkbox"
+                    :disabled="index === valueIndex"
+                    v-model="keyOrderArr[index]"
+                    @change="orderChecked(index)"
+                  />Add to keys
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="bgc-data"
+                v-for="num of maxLength"
+                :key="`num_${num}`"
+              >
+                <label>
+                  <input
+                    type="radio"
+                    name="value"
+                    @change="valueChecked(num - 1)"
+                  />Value
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <th
+                v-for="num of maxLength"
+                :key="`num_${num}`"
+              >
+                Column{{ num }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(row, index) in selectedFile"
+              :key="`row_${index}`"
+            >
+              <td
+                class="background-color-white"
+                v-for="(val, index) in row"
+                :key="`val_${index}`"
+              >
+                {{ val }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   <div
@@ -169,6 +177,7 @@ export default {
       this.keyOrders = [];
       this.maxLength = null;
       this.keyOrderArr = [];
+      this.valueIndex = null;
     },
     orderChecked (index) {
       const foundIndex = this.keyOrders.indexOf(index);
@@ -258,6 +267,26 @@ export default {
 .xlsx-table th {
   background-color: rgb(116, 190, 104);
 }
+.xlsx-table thead {
+  position: sticky;
+  top: 0;
+}
+.sticky-table {
+  position: relative;
+  overflow-y: auto;
+  height: 85%;
+}
+.sticky-table table {
+  border: 1px solid #DDD;
+  vertical-align: middle;
+  text-align: center;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border-collapse:separate;
+}
+.bgc-data {
+  background-color: rgb(255, 188, 79);
+}
 .xlsx-convertion-data-area {
   margin: 5px;
   text-align: left;
@@ -269,6 +298,6 @@ export default {
   background-color: white;
 }
 .bkc-other {
-  background-color: rgb(237, 237, 102) !important;
+  background-color: rgb(228, 224, 0) !important;
 }
 </style>
