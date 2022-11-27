@@ -126,7 +126,7 @@
         @click="convert()"
         :disabled="!isFileInputed || !isValidFileFormat"
       >
-        Convert
+        Read
       </button>
       <p
         v-if="!isValidFileFormat"
