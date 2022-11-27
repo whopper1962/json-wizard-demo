@@ -3,7 +3,7 @@ module.exports = class JsonGenerator {
     this.parents = parentKeys;
     this.valueIndex = valueIndex;
     this.contents = contents;
-    this.orderedKeyValues = [];
+    this.orderedKeys = [];
     this.json = {};
     for (const row of this.contents) {
       const valueArr = [];
@@ -11,18 +11,18 @@ module.exports = class JsonGenerator {
         valueArr.push(row[keyIndex]);
       }
       // valueArr.push(row[this.valueIndex]);
-      this.orderedKeyValues.push(valueArr);
+      this.orderedKeys.push(valueArr);
     }
   }
 
   generate() {
-    for (const keyIndex of this.parents) {
+    for (const keyIndex of this.orderedKeys) {
     }
   }
 
   checkDuplicates() {
     let duplicates = [];
-    const frequency = this.orderedKeyValues.reduce(function (
+    const frequency = this.orderedKeys.reduce(function (
       seen,
       currentItem
     ) {
@@ -47,7 +47,7 @@ module.exports = class JsonGenerator {
     if (duplicates.length > 0) {
       const duplicatesindex = [];
       for (const duplicate of duplicates) {
-        for (const [index, keys] of this.orderedKeyValues.entries()) {
+        for (const [index, keys] of this.orderedKeys.entries()) {
           if (JSON.stringify(keys) !== JSON.stringify(duplicate)) continue;
           duplicatesindex.push(index);
         }
