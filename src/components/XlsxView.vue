@@ -16,6 +16,7 @@
     <input
       type="file"
       accept=".xls,.xlsx,.csv"
+      @change="fileInputed"
     >
     <div class="convert-button">
       <button
@@ -36,19 +37,31 @@
 </template>
 
 <script>
+import xlsxJsonConverter from '@/lib/xlsx-json-converter';
+
 export default {
   data () {
     return {
       converted: false,
       isFileInputed: false,
-      isValidFileFormat: true
+      isValidFileFormat: true,
+      selectedFile: {}
     };
   },
   props: {},
   created () {},
   methods: {
+    fileInputed (event) {
+      this.selectedFile = event;
+      this.isFileInputed = true;
+    },
     convert () {
-      console.log('XLSX Convert!');
+      try {
+        xlsxJsonConverter(this.selectedFile);
+      } catch {
+        console.error('Failed to convert!');
+        this.isValidFileFormat = false;
+      }
     }
   }
 }
