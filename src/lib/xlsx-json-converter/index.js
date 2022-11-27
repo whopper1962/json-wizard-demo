@@ -1,7 +1,8 @@
 const formatChecker = require('../format-checker');
 
 module.exports = function (file) {
-  checkFormat(file);
+  // checkFormat(file);
+  formatChecker.checkXlsxFormat(file);
   // try {
   // } catch {
   // }
@@ -9,8 +10,7 @@ module.exports = function (file) {
 
 function checkFormat (file) {
   if (file) {
-    formatChecker.checkJsonFormat(file);
   } else {
-    formatChecker.checkXlsxFormat(file);
+    formatChecker.checkJsonFormat(file);
   }
 }

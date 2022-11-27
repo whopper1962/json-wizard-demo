@@ -38,6 +38,7 @@
 
 <script>
 import xlsxJsonConverter from '@/lib/xlsx-json-converter';
+import readXlsxFile from 'read-excel-file';
 
 export default {
   data () {
@@ -45,15 +46,23 @@ export default {
       converted: false,
       isFileInputed: false,
       isValidFileFormat: true,
-      selectedFile: {}
+      selectedFile: []
     };
   },
   props: {},
   created () {},
   methods: {
     fileInputed (event) {
-      this.selectedFile = event;
-      this.isFileInputed = true;
+      this.isValidFileFormat = true;
+      const hello = event.target.files ? event.target.files[0] : null;
+      readXlsxFile(hello).then((rows) => {
+        console.log("rows:", rows);
+        this.selectedFile = rows;
+        this.isFileInputed = true;
+      }).catch((error) => {
+        console.error(error);
+        this.isValidFileFormat = false;
+      });
     },
     convert () {
       try {
