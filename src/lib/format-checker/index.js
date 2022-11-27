@@ -6,6 +6,7 @@ function checkJsonFormat (file) {
 function checkXlsxFormat (file) {
   console.error('CHECK XLSX FORMAT!');
   console.log(file);
+  return true;
 }
 
 module.exports = {
