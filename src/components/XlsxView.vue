@@ -46,9 +46,6 @@
         >
           Select other file
         </button><br/>
-        <div v-if="duplicatesError" class="file-format-error">
-          ❗️Duplicated key detected! Please check highlighted rows and execute again.
-        </div>
       </div>
       <div class="sticky-table">
         <table class="xlsx-table" border="5">
@@ -190,6 +187,8 @@ export default {
       this.valueIndex = null;
       this.duplicates = [];
       this.duplicatesError = false;
+      this.$store.dispatch('setDuplicationErrorStatus', false);
+      this.$store.dispatch('setInvalidKeyErrorStatus', false);
     },
     orderChecked (index) {
       const foundIndex = this.keyOrders.indexOf(index);
@@ -211,8 +210,10 @@ export default {
       this.converted = true;
     },
     execConvertion () {
+        this.$store.dispatch('setJson', {});
+      this.$store.dispatch('setDuplicationErrorStatus', false);
+      this.$store.dispatch('setInvalidKeyErrorStatus', false);
       this.duplicates = [];
-      this.duplicatesError = false;
       try {
         const generatedJson = xlsxJsonConverter({
           parentKeys: this.keyOrders,
@@ -227,10 +228,16 @@ export default {
             this.duplicates = error.body;
             this.duplicates.splice();
             this.duplicatesError = true;
+            this.$store.dispatch('setDuplicationErrorStatus', true);
+            break;
+          }
+          default: {
+            this.$store.dispatch('setInvalidKeyErrorStatus', true);
           }
         }
         // this.isValidFileFormat = false;
       }
+      console.error('CONVERTED!!!');
     }
   }
 }

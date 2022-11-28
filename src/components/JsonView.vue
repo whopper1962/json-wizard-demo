@@ -1,34 +1,28 @@
 <template>
 <div class="json-view">
   <h3 class="json-title">JSON</h3>
-  <div
-    v-if="converted"
-    class="json-contents-outer"
-  >
+  <div class="json-contents-outer">
     <div class="json-contents-inner">
-      <div class="json-data-area">
-        <button @click="copyJsonToClipbord()">Copy to clipboard</button>
-      </div>
-      <div class="json-display-area">
-        <pre>{{ json }}</pre>
+      <template v-if="converted">
+        <div class="json-data-area">
+          <button @click="copyJsonToClipbord()">Copy to clipboard</button>
+        </div>
+        <div class="json-display-area">
+          <pre>{{ json }}</pre>
+        </div>
+      </template>
+      <div
+        v-if="isDuplicateKeyError || isInvalidKeyError"
+        class="file-input-form"
+      >
+        <div v-if="isDuplicateKeyError" class="file-format-error">
+          ❗️Duplicated key detected! Please check highlighted rows and execute again.
+        </div>
+        <div v-if="isInvalidKeyError" class="file-format-error">
+          ❗️Key can't be null!
+        </div>
       </div>
     </div>
-  </div>
-  <div
-    v-else
-    class="file-input-form"
-  >
-    <!-- <input
-      type="file"
-      accept=".json"
-    >
-    <div class="convert-button">
-      <button
-        @click="convert()"
-      >
-        Convert
-      </button>
-    </div> -->
   </div>
 </div>
 </template>
@@ -46,6 +40,16 @@ export default {
       get () {
         const unformatted = this.$store.getters['getJson'];
         return JSON.stringify(unformatted, null, 6);
+      }
+    },
+    isDuplicateKeyError: {
+      get () {
+        return this.$store.getters['getDuplicationErrorStatus'];
+      }
+    },
+    isInvalidKeyError: {
+      get () {
+        return this.$store.getters['getInvalidKeyErrorStatus'];
       }
     },
     converted () {
@@ -108,6 +112,15 @@ export default {
   border: solid black;
   background-color: rgb(118, 117, 117);
   height: 99%;
+}
+.file-format-error {
+  text-align: left;
+  margin: 5px;
+  padding: 10px;
+  background-color: white !important;
+  font-family: 'Menlo', sans-serif;
+  border: solid black !important;
+  color: rgb(255, 52, 52);
 }
 .json-display-area {
   font-family: 'Menlo', sans-serif;

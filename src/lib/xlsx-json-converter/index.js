@@ -7,6 +7,10 @@ module.exports = function (xlsxObj) {
     status: 428,
     body: duplicates
   };
-  jsonGenerator.generate();
-  return jsonGenerator.json;
+  try {
+    jsonGenerator.generate();
+    return jsonGenerator.json;
+  } catch (err) {
+    throw new Error(err);
+  }
 };
