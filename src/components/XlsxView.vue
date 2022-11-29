@@ -187,6 +187,7 @@ export default {
       this.valueIndex = null;
       this.duplicates = [];
       this.duplicatesError = false;
+      this.$store.dispatch('setJson', {});
       this.$store.dispatch('setDuplicationErrorStatus', false);
       this.$store.dispatch('setInvalidKeyErrorStatus', false);
     },
