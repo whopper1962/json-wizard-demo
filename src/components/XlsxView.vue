@@ -159,15 +159,13 @@ export default {
   methods: {
     fileInputed (event) {
       this.isValidFileFormat = true;
-      const hello = event.target.files ? event.target.files[0] : null;
-      readXlsxFile(hello).then((rows) => {
+      const selectedFile = event.target.files ? event.target.files[0] : null;
+      if (!selectedFile) return;
+      readXlsxFile(selectedFile).then((rows) => {
         this.selectedFile = rows;
         this.isFileInputed = true;
         const lengths = this.selectedFile.map((row) => row.length);
         this.maxLength = Math.max(...lengths);
-        // for (const num of this.maxLength) {
-        //   this.keyOrderArr
-        // }
         for (let i = 0; i < this.maxLength; i++) {
           this.keyOrderArr.push(false);
         }
@@ -209,7 +207,7 @@ export default {
       this.converted = true;
     },
     execConvertion () {
-        this.$store.dispatch('setJson', {});
+      this.$store.dispatch('setJson', {});
       this.$store.dispatch('setDuplicationErrorStatus', false);
       this.$store.dispatch('setInvalidKeyErrorStatus', false);
       this.duplicates = [];
