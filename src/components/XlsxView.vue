@@ -151,8 +151,7 @@ export default {
       keyOrders: [],
       valueIndex: null,
       keyOrderArr: [],
-      duplicates: [],
-      duplicatesError: false
+      duplicates: []
     };
   },
   props: {},
@@ -186,7 +185,6 @@ export default {
       this.keyOrderArr = [];
       this.valueIndex = null;
       this.duplicates = [];
-      this.duplicatesError = false;
       this.$store.dispatch('setJson', {});
       this.$store.dispatch('setDuplicationErrorStatus', false);
       this.$store.dispatch('setInvalidKeyErrorStatus', false);
@@ -223,13 +221,20 @@ export default {
         });
         this.$store.dispatch('setJson', generatedJson);
       } catch (error) {
+        console.error(error.status);
         switch (error.status) {
           case 428: {
             this.keyDuplicated = true;
             this.duplicates = error.body;
             this.duplicates.splice();
-            this.duplicatesError = true;
             this.$store.dispatch('setDuplicationErrorStatus', true);
+            break;
+          }
+          case 429: {
+            this.duplicates = error.body;
+            console.error(this.duplicates);
+            this.duplicates.splice();
+            this.$store.dispatch('setInvalidKeyErrorStatus', true);
             break;
           }
           default: {
