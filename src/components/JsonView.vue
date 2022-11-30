@@ -19,7 +19,7 @@
           ❗️Duplicated key detected! Please check highlighted rows and execute again.
         </div>
         <div v-if="isInvalidKeyError" class="file-format-error">
-          ❗️Key can't be null!
+          ❗️Key can't be null! Please check highlighted rows and execute again.
         </div>
       </div>
     </div>

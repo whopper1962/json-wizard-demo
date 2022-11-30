@@ -5,6 +5,7 @@ module.exports = class JsonGenerator {
     this.contents = contents;
     this.orderedKeys = [];
     this.nullKeys = [];
+    this.duplicates = []
     this.json = {};
     for (const row of this.contents) {
       const valueArr = [];
@@ -22,6 +23,7 @@ module.exports = class JsonGenerator {
         if (keyIndex === keys.length - 1) {
           if (currentKey === null) {
             this.nullKeys.push(index);
+            continue;
           }
           if (isKeyExists(masterObj, currentKey)) throw new Error('Key duplicated!');
           masterObj[currentKey] = this.contents[index][this.valueIndex];
@@ -37,7 +39,6 @@ module.exports = class JsonGenerator {
   }
 
   checkDuplicates() {
-    let duplicates = [];
     const frequency = this.orderedKeys.reduce(function (
       seen,
       currentItem
@@ -52,7 +53,7 @@ module.exports = class JsonGenerator {
 
     for (const key in frequency) {
       if (frequency[key] > 1) {
-        duplicates.push(
+        this.duplicates.push(
           key.split(",").map(function (currentItem) {
             return currentItem;
           })
@@ -60,9 +61,9 @@ module.exports = class JsonGenerator {
       }
     }
 
-    if (duplicates.length > 0) {
+    if (this.duplicates.length > 0) {
       const duplicatesindex = [];
-      for (const duplicate of duplicates) {
+      for (const duplicate of this.duplicates) {
         for (const [index, keys] of this.orderedKeys.entries()) {
           if (JSON.stringify(keys) !== JSON.stringify(duplicate)) continue;
           duplicatesindex.push(index);

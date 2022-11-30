@@ -221,7 +221,6 @@ export default {
         });
         this.$store.dispatch('setJson', generatedJson);
       } catch (error) {
-        console.error(error.status);
         switch (error.status) {
           case 428: {
             this.keyDuplicated = true;
@@ -232,7 +231,6 @@ export default {
           }
           case 429: {
             this.duplicates = error.body;
-            console.error(this.duplicates);
             this.duplicates.splice();
             this.$store.dispatch('setInvalidKeyErrorStatus', true);
             break;
