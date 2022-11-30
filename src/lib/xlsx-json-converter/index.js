@@ -2,8 +2,8 @@ const JsonGenerator = require('@/lib/xlsx-json-converter/json-generator');
 
 module.exports = function (xlsxObj) {
   const jsonGenerator = new JsonGenerator({...xlsxObj});
-  jsonGenerator.checkDuplicates();
   jsonGenerator.generate();
+  jsonGenerator.checkDuplicates();
   if (jsonGenerator.nullKeys.length > 0) {
     throw {
       status: 429,
