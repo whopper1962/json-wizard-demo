@@ -46,6 +46,9 @@
         >
           Select other file
         </button><br/>
+        <select class="sheet-select">
+          <option>Sheet1</option>
+        </select>
       </div>
       <div class="sticky-table">
         <table class="xlsx-table" border="5">
@@ -139,6 +142,7 @@
 <script>
 import xlsxJsonConverter from '@/lib/xlsx-json-converter';
 import readXlsxFile from 'read-excel-file';
+// import { read, utils, writeFile } from 'xlsx';
 
 export default {
   data () {
@@ -161,7 +165,15 @@ export default {
       this.isValidFileFormat = true;
       const selectedFile = event.target.files ? event.target.files[0] : null;
       if (!selectedFile) return;
-      readXlsxFile(selectedFile).then((rows) => {
+      // console.error(XLSX);
+      const workbook = read(selectedFile);
+      console.error(workbook.SheetNames);
+      const sheets = workbook.SheetNames;
+      this.$store.dispatch('setXlsxSheets', sheets);
+      const selectedSheet = 'Sheet1';
+      readXlsxFile(selectedFile, {
+        sheet: selectedSheet
+      }).then((rows) => {
         this.selectedFile = rows;
         this.isFileInputed = true;
         const lengths = this.selectedFile.map((row) => row.length);
@@ -342,5 +354,8 @@ export default {
 }
 .error-row td {
   background-color: rgb(255, 122, 122) !important;
+}
+.sheet-select {
+  margin-top: 5px;
 }
 </style>

@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     json: {},
+    xlsxSheets: [],
     duplicationError: false,
     invalidKeyError: false
   },
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     },
     getInvalidKeyErrorStatus (state) {
       return state.invalidKeyError;
+    },
+    getXlsxSheets (state) {
+      return state.xlsxSheets;
     }
   },
   mutations: {
@@ -29,6 +33,9 @@ export default new Vuex.Store({
     },
     SET_INVALID_KEY_ERROR_STATUS (state, status) {
       state.invalidKeyError = status;
+    },
+    SET_XLSX_SHEETS (state, sheets) {
+      state.xlsxSheets = sheets;
     }
   },
   actions: {
@@ -40,6 +47,9 @@ export default new Vuex.Store({
     },
     setInvalidKeyErrorStatus (context, status) {
       context.commit('SET_INVALID_KEY_ERROR_STATUS', status);
+    },
+    setXlsxSheets (context, sheets) {
+      context.commit('SET_XLSX_SHEETS', sheets);
     }
   },
   modules: {
