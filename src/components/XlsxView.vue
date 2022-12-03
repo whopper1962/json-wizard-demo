@@ -32,7 +32,7 @@
               Column{{ column + 1 }}
             </td>
             <td v-if="valueIndex !== null">Column{{ valueIndex + 1 }}</td>
-            <td v-else>Select column</td>
+            <td v-else class="placeholder-style">Select column</td>
           </tr>
         </table>
         <button
@@ -142,7 +142,7 @@
 <script>
 import xlsxJsonConverter from '@/lib/xlsx-json-converter';
 import readXlsxFile from 'read-excel-file';
-// import { read, utils, writeFile } from 'xlsx';
+// import XLSX from 'xlsx/xlsx';
 
 export default {
   data () {
@@ -166,10 +166,10 @@ export default {
       const selectedFile = event.target.files ? event.target.files[0] : null;
       if (!selectedFile) return;
       // console.error(XLSX);
-      const workbook = read(selectedFile);
-      console.error(workbook.SheetNames);
-      const sheets = workbook.SheetNames;
-      this.$store.dispatch('setXlsxSheets', sheets);
+      // const workbook = XLSX.readFile(selectedFile);
+      // console.error(workbook.SheetNames);
+      // const sheets = workbook.SheetNames;
+      // this.$store.dispatch('setXlsxSheets', sheets);
       const selectedSheet = 'Sheet1';
       readXlsxFile(selectedFile, {
         sheet: selectedSheet
@@ -263,6 +263,7 @@ export default {
   width: 100%;
 }
 .xlsx-convertion-data-table {
+  font-size: 12px;
   font-family: 'Menlo', sans-serif;
   width: 100%;
   background-color: white;
@@ -306,6 +307,7 @@ export default {
   padding: 10px;
 }
 .xlsx-contents-inner {
+  /* font-size: 12px; */
   border: solid black;
   background-color: rgb(118, 117, 117);
   height: 99%;
@@ -324,6 +326,7 @@ export default {
   top: 0;
 }
 .sticky-table {
+  font-size: 12px;
   position: relative;
   overflow-y: auto;
   height: 80%;
