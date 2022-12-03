@@ -329,7 +329,7 @@ export default {
   font-size: 12px;
   position: relative;
   overflow-y: auto;
-  height: 80%;
+  height: 70%;
 }
 .sticky-table table {
   border: 1px solid #DDD;
@@ -359,6 +359,6 @@ export default {
   background-color: rgb(255, 122, 122) !important;
 }
 .sheet-select {
-  margin-top: 5px;
+  margin-top: 10px;
 }
 </style>
