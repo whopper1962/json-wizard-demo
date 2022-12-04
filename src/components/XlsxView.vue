@@ -254,6 +254,7 @@ export default {
       this.keyOrders = [];
       this.selectedSheetMaxLen = null;
       this.keyOrderArr = [];
+      this.invalidRows = [];
       this.valueIndex = null;
       this.keyOrders = [];
       this.$store.dispatch('setJson', {});
@@ -281,6 +282,20 @@ export default {
     },
     deleteRow (rowIndex) {
       this.selectedSheetContents.splice(rowIndex, 1);
+      if (this.invalidRows.length === 0) return;
+      let newInvalidRows = [];
+      for (let invalidRow of this.invalidRows) {
+        if (invalidRow === rowIndex) continue;
+        if (invalidRow > rowIndex){
+          newInvalidRows.push(invalidRow - 1);
+          continue;
+        }
+        if (invalidRow < rowIndex) {
+          newInvalidRows.push(invalidRow);
+          continue;
+        }
+      }
+      this.invalidRows = newInvalidRows.slice();
     },
     execConvertion () {
       this.$store.dispatch('setJson', {});
