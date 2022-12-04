@@ -35,4 +35,10 @@ button {
   /* font-family: Avenir, Helvetica, Arial, sans-serif; */
   /* font-weight: bold; */
 }
+
+pre {
+  font-family: 'Menlo', sans-serif;
+  font-size: 13px;
+  line-height: 160%;
+}
 </style>
