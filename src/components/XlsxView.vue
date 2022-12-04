@@ -61,6 +61,10 @@
             </option>
           </select>
         </div>
+        <div class="sheet-select-area">
+          Number of rows: {{ selectedSheetContents.length }}<br>
+          Number of excluded rows: {{ excludedRows.length }}
+        </div>
       </div>
       <div class="sticky-table">
         <table class="xlsx-table" border="5">
@@ -94,7 +98,7 @@
                     type="radio"
                     name="value"
                     @change="valueChecked(num - 1)"
-                  />Value
+                  />Set to value
                 </label>
               </td>
             </tr>
@@ -417,7 +421,7 @@ export default {
   font-size: 12px;
   position: relative;
   overflow-y: auto;
-  height: 75%;
+  height: 68%;
 }
 .sticky-table table {
   border: 1px solid #DDD;
@@ -455,6 +459,7 @@ export default {
 .sheet-select-area {
   color: white;
   font-weight: bold;
+  font-size: 13px;
 }
 .delete-row-button-area {
   width: 1%;

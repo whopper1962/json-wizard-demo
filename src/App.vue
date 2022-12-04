@@ -32,5 +32,7 @@ nav a.router-link-exact-active {
 
 button {
   cursor: pointer;
+  /* font-family: Avenir, Helvetica, Arial, sans-serif; */
+  /* font-weight: bold; */
 }
 </style>
