@@ -46,14 +46,16 @@
         >
           Select other file
         </button><br/>
-        <select
-          class="sheet-select"
-          v-model="selectedSheet"
-          @change="changeSheet()"
-        >
-          <option :value="`Sheet1`">Sheet1</option>
-          <option :value="`Sheet2`">Sheet2</option>
-        </select>
+        <div class="sheet-select-area">
+          Selected sheet: <select
+            class="sheet-select"
+            v-model="selectedSheet"
+            @change="changeSheet()"
+          >
+            <option :value="`Sheet1`">Sheet1</option>
+            <option :value="`Sheet2`">Sheet2</option>
+          </select>
+        </div>
       </div>
       <div class="sticky-table">
         <table class="xlsx-table" border="5">
@@ -147,7 +149,7 @@
 <script>
 import xlsxJsonConverter from '@/lib/xlsx-json-converter';
 import readXlsxFile from 'read-excel-file';
-// import XLSX from 'xlsx/xlsx';
+import * as XLSX from 'xlsx';
 
 export default {
   data () {
@@ -160,6 +162,7 @@ export default {
       selectedSheet: [],
       selectedSheet: '',
       keyOrders: [],
+      sheetNames: [],
       valueIndex: null,
       keyOrderArr: [],
       duplicates: []
@@ -168,11 +171,12 @@ export default {
   props: {},
   created () {},
   methods: {
-    fileInputed (event) {
+    async fileInputed (event) {
       this.isValidFileFormat = true;
       const xlsxContents = event.target.files ? event.target.files[0] : null;
       if (!xlsxContents) return;
-      this.selectedSheet = 'Sheet1';
+      await this.setSheetNames(xlsxContents);
+      this.selectedSheet = this.sheetNames[0];
       readXlsxFile(xlsxContents, {
         sheet: this.selectedSheet
       }).then((rows) => {
@@ -186,6 +190,24 @@ export default {
       }).catch((error) => {
         console.error(error);
         this.isValidFileFormat = false;
+      });
+    },
+    async setSheetNames (xlsxContents) {
+      await new Promise((resolve) => {
+        const fileReader = new FileReader();
+        fileReader.readAsArrayBuffer(xlsxContents);
+        fileReader.onload = () => {
+          this.arrayBuffer = fileReader.result;
+          const data = new Uint8Array(this.arrayBuffer);
+          const arr = new Array();
+          for (let i = 0; i != data.length; ++i) {
+            arr[i] = String.fromCharCode(data[i]);
+          }
+          const bstr = arr.join('');
+          const workbook = XLSX.read(bstr, { type: 'binary' });
+          this.sheetNames = workbook.SheetNames;
+          resolve();
+        };
       });
     },
     readSheets (file, sheets) {
@@ -383,5 +405,8 @@ export default {
 }
 .sheet-select {
   margin-top: 10px;
+}
+.sheet-select-area {
+  color: white;
 }
 </style>
