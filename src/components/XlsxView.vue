@@ -186,8 +186,8 @@ export default {
       this.selectedSheet = this.sheetNames[0];
       this.changeSheet();
     },
-    async setSheetNames (fileContents) {
-      await new Promise((resolve) => {
+    setSheetNames (fileContents) {
+      return new Promise((resolve) => {
         const fileReader = new FileReader();
         fileReader.readAsArrayBuffer(fileContents);
         fileReader.onload = () => {
