@@ -122,13 +122,13 @@
                   v-if="excludedRows.includes(rowIndex)"
                   @click="addRow(rowIndex)"
                 >
-                  ⭕️
+                  <font-awesome-icon icon="fa-solid fa-trash-arrow-up" />
                 </button>
                 <button
                   v-else
                   @click="deleteRow(rowIndex)"
                 >
-                  ❌
+                  <font-awesome-icon icon="fa-solid fa-trash" />
                 </button>
               </td>
               <td
@@ -188,7 +188,6 @@ export default {
       contentsToConversion: [],
       selectedSheet: [],
       excludedRows: [],
-      selectedSheet: '',
       keyOrders: [],
       sheetNames: [],
       valueIndex: null,
@@ -459,5 +458,8 @@ export default {
 }
 .delete-row-button-area {
   width: 1%;
+}
+.delete-row-button-area button{
+  width: 100%;
 }
 </style>
