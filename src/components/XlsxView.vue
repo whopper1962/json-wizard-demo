@@ -52,8 +52,13 @@
             v-model="selectedSheet"
             @change="changeSheet()"
           >
-            <option :value="`Sheet1`">Sheet1</option>
-            <option :value="`Sheet2`">Sheet2</option>
+            <option
+              v-for="(sheetName, index) in sheetNames"
+              :key="`sheetName_${index}`"
+              :value="sheetName"
+            >
+              {{ sheetName }}
+            </option>
           </select>
         </div>
       </div>
@@ -79,7 +84,7 @@
             <tr>
               <td
                 class="bgc-data"
-                v-for="num of maxLength"
+                v-for="num of selectedSheetMaxLen"
                 :key="`num_${num}`"
               >
                 <label>
@@ -93,7 +98,7 @@
             </tr>
             <tr>
               <th
-                v-for="num of maxLength"
+                v-for="num of selectedSheetMaxLen"
                 :key="`num_${num}`"
               >
                 Column{{ num }}
@@ -102,7 +107,7 @@
           </thead>
           <tbody>
             <tr
-              v-for="(row, rowIndex) in xlsxContents"
+              v-for="(row, rowIndex) in selectedSheetContents"
               :key="`row_${rowIndex}`"
               :class="{'error-row': duplicates.includes(rowIndex)}"
             >
@@ -157,8 +162,9 @@ export default {
       converted: false,
       isFileInputed: false,
       isValidFileFormat: true,
-      maxLength: 0,
+      selectedSheetMaxLen: 0,
       xlsxContents: [],
+      selectedSheetContents: [],
       selectedSheet: [],
       selectedSheet: '',
       keyOrders: [],
@@ -173,29 +179,17 @@ export default {
   methods: {
     async fileInputed (event) {
       this.isValidFileFormat = true;
-      const xlsxContents = event.target.files ? event.target.files[0] : null;
-      if (!xlsxContents) return;
-      await this.setSheetNames(xlsxContents);
+      const fileContents = event.target.files ? event.target.files[0] : null;
+      if (!fileContents) return;
+      await this.setSheetNames(fileContents);
+      await this.readSheets(fileContents, this.sheetNames);
       this.selectedSheet = this.sheetNames[0];
-      readXlsxFile(xlsxContents, {
-        sheet: this.selectedSheet
-      }).then((rows) => {
-        this.xlsxContents = rows;
-        this.isFileInputed = true;
-        const lengths = this.xlsxContents.map((row) => row.length);
-        this.maxLength = Math.max(...lengths);
-        for (let i = 0; i < this.maxLength; i++) {
-          this.keyOrderArr.push(false);
-        }
-      }).catch((error) => {
-        console.error(error);
-        this.isValidFileFormat = false;
-      });
+      this.changeSheet();
     },
-    async setSheetNames (xlsxContents) {
+    async setSheetNames (fileContents) {
       await new Promise((resolve) => {
         const fileReader = new FileReader();
-        fileReader.readAsArrayBuffer(xlsxContents);
+        fileReader.readAsArrayBuffer(fileContents);
         fileReader.onload = () => {
           this.arrayBuffer = fileReader.result;
           const data = new Uint8Array(this.arrayBuffer);
@@ -210,36 +204,48 @@ export default {
         };
       });
     },
-    readSheets (file, sheets) {
+    async readSheets (fileContents, sheets) {
       for (const sheet of sheets) {
-        readXlsxFile(file, {
+        await readXlsxFile(fileContents, {
           sheet
         }).then((rows) => {
-          this.xlsxContents[sheet] = rows;
-          // this.isFileInputed = true;
-          const lengths = this.xlsxContents.map((row) => row.length);
-          this.maxLength = Math.max(...lengths);
-          for (let i = 0; i < this.maxLength; i++) {
-            this.keyOrderArr.push(false);
-          }
+          this.xlsxContents = Object.assign({}, this.xlsxContents, {
+            [sheet]: rows
+          });
         }).catch((error) => {
           console.error(error);
           this.isValidFileFormat = false;
         });
       }
+      this.isFileInputed = true;
+    },
+    resetValueRadioButtons () {
+      for (const element of document.getElementsByName('value')) {
+        element.checked = false;
+      }
     },
     changeSheet () {
-      console.error(this.selectedSheet);
+      this.keyOrderArr = [];
+      this.keyOrders = [];
+      this.keyOrders = [];
+      this.valueIndex = null;
+      this.resetValueRadioButtons();
+      this.selectedSheetContents = this.xlsxContents[this.selectedSheet];
+      const lengths = this.selectedSheetContents.map((row) => row.length);
+      this.selectedSheetMaxLen = Math.max(...lengths);
+      for (let i = 0; i < this.selectedSheetMaxLen; i++) {
+        this.keyOrderArr.push(false);
+      }
     },
     initXlsxForm () {
       this.converted = false;
       this.isValidFileFormat = true;
       this.isFileInputed = false;
       this.keyOrders = [];
-      this.maxLength = null;
+      this.selectedSheetMaxLen = null;
       this.keyOrderArr = [];
       this.valueIndex = null;
-      this.duplicates = [];
+      this.keyOrders = [];
       this.$store.dispatch('setJson', {});
       this.$store.dispatch('setDuplicationErrorStatus', false);
       this.$store.dispatch('setInvalidKeyErrorStatus', false);
@@ -272,7 +278,7 @@ export default {
         const generatedJson = xlsxJsonConverter({
           parentKeys: this.keyOrders,
           valueIndex: this.valueIndex,
-          contents: this.xlsxContents
+          contents: this.selectedSheetContents
         });
         this.$store.dispatch('setJson', generatedJson);
       } catch (error) {
