@@ -46,8 +46,13 @@
         >
           Select other file
         </button><br/>
-        <select class="sheet-select">
-          <option>Sheet1</option>
+        <select
+          class="sheet-select"
+          v-model="selectedSheet"
+          @change="changeSheet()"
+        >
+          <option :value="`Sheet1`">Sheet1</option>
+          <option :value="`Sheet2`">Sheet2</option>
         </select>
       </div>
       <div class="sticky-table">
@@ -95,7 +100,7 @@
           </thead>
           <tbody>
             <tr
-              v-for="(row, rowIndex) in selectedFile"
+              v-for="(row, rowIndex) in xlsxContents"
               :key="`row_${rowIndex}`"
               :class="{'error-row': duplicates.includes(rowIndex)}"
             >
@@ -151,7 +156,9 @@ export default {
       isFileInputed: false,
       isValidFileFormat: true,
       maxLength: 0,
-      selectedFile: [],
+      xlsxContents: [],
+      selectedSheet: [],
+      selectedSheet: '',
       keyOrders: [],
       valueIndex: null,
       keyOrderArr: [],
@@ -163,20 +170,15 @@ export default {
   methods: {
     fileInputed (event) {
       this.isValidFileFormat = true;
-      const selectedFile = event.target.files ? event.target.files[0] : null;
-      if (!selectedFile) return;
-      // console.error(XLSX);
-      // const workbook = XLSX.readFile(selectedFile);
-      // console.error(workbook.SheetNames);
-      // const sheets = workbook.SheetNames;
-      // this.$store.dispatch('setXlsxSheets', sheets);
-      const selectedSheet = 'Sheet1';
-      readXlsxFile(selectedFile, {
-        sheet: selectedSheet
+      const xlsxContents = event.target.files ? event.target.files[0] : null;
+      if (!xlsxContents) return;
+      this.selectedSheet = 'Sheet1';
+      readXlsxFile(xlsxContents, {
+        sheet: this.selectedSheet
       }).then((rows) => {
-        this.selectedFile = rows;
+        this.xlsxContents = rows;
         this.isFileInputed = true;
-        const lengths = this.selectedFile.map((row) => row.length);
+        const lengths = this.xlsxContents.map((row) => row.length);
         this.maxLength = Math.max(...lengths);
         for (let i = 0; i < this.maxLength; i++) {
           this.keyOrderArr.push(false);
@@ -185,6 +187,27 @@ export default {
         console.error(error);
         this.isValidFileFormat = false;
       });
+    },
+    readSheets (file, sheets) {
+      for (const sheet of sheets) {
+        readXlsxFile(file, {
+          sheet
+        }).then((rows) => {
+          this.xlsxContents[sheet] = rows;
+          // this.isFileInputed = true;
+          const lengths = this.xlsxContents.map((row) => row.length);
+          this.maxLength = Math.max(...lengths);
+          for (let i = 0; i < this.maxLength; i++) {
+            this.keyOrderArr.push(false);
+          }
+        }).catch((error) => {
+          console.error(error);
+          this.isValidFileFormat = false;
+        });
+      }
+    },
+    changeSheet () {
+      console.error(this.selectedSheet);
     },
     initXlsxForm () {
       this.converted = false;
@@ -227,7 +250,7 @@ export default {
         const generatedJson = xlsxJsonConverter({
           parentKeys: this.keyOrders,
           valueIndex: this.valueIndex,
-          contents: this.selectedFile
+          contents: this.xlsxContents
         });
         this.$store.dispatch('setJson', generatedJson);
       } catch (error) {
