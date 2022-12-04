@@ -1,8 +1,10 @@
 module.exports = class JsonGenerator {
-  constructor({ parentKeys, valueIndex, contents }) {
+  constructor({ parentKeys, valueIndex, contents, excludes }) {
     this.parents = parentKeys;
     this.valueIndex = valueIndex;
     this.contents = contents;
+    this.excludes = excludes;
+    this.excludedKeyPaths = [];
     this.orderedKeys = [];
     this.nullKeys = [];
     this.duplicates = []
@@ -14,10 +16,15 @@ module.exports = class JsonGenerator {
       }
       this.orderedKeys.push(valueArr);
     }
+    for (const excludeIndex of this.excludes) {
+      const keyPath = this.orderedKeys[excludeIndex].join('.');
+      this.excludedKeyPaths.push(keyPath);
+    }
   }
 
   generate() {
     for (const [index, keys] of this.orderedKeys.entries()) {
+      if (this.excludes.includes(index)) continue;
       let masterObj = this.json;
       for (const [keyIndex, currentKey] of keys.entries()) {
         if (keyIndex === keys.length - 1) {
@@ -52,6 +59,8 @@ module.exports = class JsonGenerator {
     }, {});
 
     for (const key in frequency) {
+      const joinedKey = key.split(',').join('.');
+      if (this.excludedKeyPaths.includes(joinedKey)) continue;
       if (frequency[key] > 1) {
         duplicates.push(
           key.split(",").map(function (currentItem) {

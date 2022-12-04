@@ -112,10 +112,20 @@
             <tr
               v-for="(row, rowIndex) in selectedSheetContents"
               :key="`row_${rowIndex}`"
-              :class="{'error-row': invalidRows.includes(rowIndex)}"
+              :class="{
+                'error-row': invalidRows.includes(rowIndex),
+                'excluded-row': excludedRows.includes(rowIndex)
+              }"
             >
               <td class="delete-row-button-area">
                 <button
+                  v-if="excludedRows.includes(rowIndex)"
+                  @click="addRow(rowIndex)"
+                >
+                  ⭕️
+                </button>
+                <button
+                  v-else
                   @click="deleteRow(rowIndex)"
                 >
                   ❌
@@ -175,7 +185,9 @@ export default {
       selectedSheetMaxLen: 0,
       xlsxContents: [],
       selectedSheetContents: [],
+      contentsToConversion: [],
       selectedSheet: [],
+      excludedRows: [],
       selectedSheet: '',
       keyOrders: [],
       sheetNames: [],
@@ -238,6 +250,7 @@ export default {
       this.keyOrderArr = [];
       this.keyOrders = [];
       this.keyOrders = [];
+      this.excludedRows = [];
       this.valueIndex = null;
       this.resetValueRadioButtons();
       this.selectedSheetContents = this.xlsxContents[this.selectedSheet];
@@ -255,6 +268,7 @@ export default {
       this.selectedSheetMaxLen = null;
       this.keyOrderArr = [];
       this.invalidRows = [];
+      this.excludedRows = [];
       this.valueIndex = null;
       this.keyOrders = [];
       this.$store.dispatch('setJson', {});
@@ -281,21 +295,17 @@ export default {
       this.converted = true;
     },
     deleteRow (rowIndex) {
-      this.selectedSheetContents.splice(rowIndex, 1);
-      if (this.invalidRows.length === 0) return;
-      let newInvalidRows = [];
-      for (let invalidRow of this.invalidRows) {
-        if (invalidRow === rowIndex) continue;
-        if (invalidRow > rowIndex){
-          newInvalidRows.push(invalidRow - 1);
-          continue;
-        }
-        if (invalidRow < rowIndex) {
-          newInvalidRows.push(invalidRow);
-          continue;
-        }
+      this.excludedRows.push(rowIndex);
+    },
+    addRow (rowIndex) {
+      this.excludedRows = this.excludedRows.filter((row) => {
+        return row !== rowIndex;
+      });
+    },
+    filterRows () {
+      for (const excludedRowIndex of this.excludedRows) {
+        this.contentsToConversion.splice(excludedRowIndex, 1);
       }
-      this.invalidRows = newInvalidRows.slice();
     },
     execConvertion () {
       this.$store.dispatch('setJson', {});
@@ -306,7 +316,8 @@ export default {
         const generatedJson = xlsxJsonConverter({
           parentKeys: this.keyOrders,
           valueIndex: this.valueIndex,
-          contents: this.selectedSheetContents
+          contents: this.selectedSheetContents,
+          excludes: this.excludedRows
         });
         this.$store.dispatch('setJson', generatedJson);
       } catch (error) {
@@ -436,6 +447,9 @@ export default {
 }
 .error-row td {
   background-color: rgb(255, 122, 122) !important;
+}
+.excluded-row td {
+  background-color: rgb(179, 179, 179) !important;
 }
 .sheet-select {
   margin-top: 10px;
