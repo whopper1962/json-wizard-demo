@@ -66,6 +66,7 @@
         <table class="xlsx-table" border="5">
           <thead>
             <tr>
+              <td class="bgc-data"></td>
               <td
                 class="bgc-data"
                 v-for="(num, index) in keyOrderArr"
@@ -82,6 +83,7 @@
               </td>
             </tr>
             <tr>
+              <td class="bgc-data"></td>
               <td
                 class="bgc-data"
                 v-for="num of selectedSheetMaxLen"
@@ -97,6 +99,7 @@
               </td>
             </tr>
             <tr>
+              <th></th>
               <th
                 v-for="num of selectedSheetMaxLen"
                 :key="`num_${num}`"
@@ -109,8 +112,15 @@
             <tr
               v-for="(row, rowIndex) in selectedSheetContents"
               :key="`row_${rowIndex}`"
-              :class="{'error-row': duplicates.includes(rowIndex)}"
+              :class="{'error-row': invalidRows.includes(rowIndex)}"
             >
+              <td class="delete-row-button-area">
+                <button
+                  @click="deleteRow(rowIndex)"
+                >
+                  ❌
+                </button>
+              </td>
               <td
                 class="background-color-white"
                 v-for="(val, index) in row"
@@ -171,7 +181,7 @@ export default {
       sheetNames: [],
       valueIndex: null,
       keyOrderArr: [],
-      duplicates: []
+      invalidRows: []
     };
   },
   props: {},
@@ -269,11 +279,14 @@ export default {
     convert () {
       this.converted = true;
     },
+    deleteRow (rowIndex) {
+      this.selectedSheetContents.splice(rowIndex, 1);
+    },
     execConvertion () {
       this.$store.dispatch('setJson', {});
       this.$store.dispatch('setDuplicationErrorStatus', false);
       this.$store.dispatch('setInvalidKeyErrorStatus', false);
-      this.duplicates = [];
+      this.invalidRows = [];
       try {
         const generatedJson = xlsxJsonConverter({
           parentKeys: this.keyOrders,
@@ -285,14 +298,14 @@ export default {
         switch (error.status) {
           case 428: {
             this.keyDuplicated = true;
-            this.duplicates = error.body;
-            this.duplicates.splice();
+            this.invalidRows = error.body;
+            this.invalidRows.splice();
             this.$store.dispatch('setDuplicationErrorStatus', true);
             break;
           }
           case 429: {
-            this.duplicates = error.body;
-            this.duplicates.splice();
+            this.invalidRows = error.body;
+            this.invalidRows.splice();
             this.$store.dispatch('setInvalidKeyErrorStatus', true);
             break;
           }
@@ -414,5 +427,8 @@ export default {
 }
 .sheet-select-area {
   color: white;
+}
+.delete-row-button-area {
+  width: 1%;
 }
 </style>
