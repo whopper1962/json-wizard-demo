@@ -9,9 +9,12 @@
             Copy to clipboard
           </button>
         </div>
-        <div class="json-display-area">
+        <CodeEditor
+          v-model="inputedJson"
+        />
+        <!-- <div class="json-display-area">
           <pre>{{ json }}</pre>
-        </div>
+        </div> -->
       </template>
       <div
         v-if="isDuplicateKeyError || isInvalidKeyError"
@@ -30,9 +33,15 @@
 </template>
 
 <script>
+import CodeEditor from '@/components/CodeEditor';
+
 export default {
+  components: {
+    CodeEditor
+  },
   data () {
     return {
+      inputedJson: ''
     };
   },
   props: {},
@@ -41,7 +50,7 @@ export default {
     json: {
       get () {
         const unformatted = this.$store.getters['getJson'];
-        return JSON.stringify(unformatted, null, 6);
+        return JSON.stringify(unformatted, null, 4);
       }
     },
     isDuplicateKeyError: {
@@ -58,10 +67,15 @@ export default {
       return Object.keys(JSON.parse(this.json)).length > 0;
     }
   },
+  watch: {
+    json (newJson) {
+      this.inputedJson = newJson;
+    }
+  },
   methods: {
     copyJsonToClipbord () {
       const jsonToCopy = JSON.stringify(
-        JSON.parse(this.json),
+        JSON.parse(this.inputedJson),
         null,
         4
       );

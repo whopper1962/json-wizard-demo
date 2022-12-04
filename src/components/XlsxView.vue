@@ -421,7 +421,7 @@ export default {
   font-size: 12px;
   position: relative;
   overflow-y: auto;
-  height: 68%;
+  height: 70%;
 }
 .sticky-table table {
   border: 1px solid #DDD;

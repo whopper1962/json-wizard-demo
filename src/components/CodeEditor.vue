@@ -3,6 +3,7 @@
     class="my-editor height-400"
     v-model="inputedCode"
     :highlight="highlighter"
+    :readonly="false"
     line-numbers
   >
   </PrismEditor>
@@ -63,5 +64,15 @@ export default {
 }
 .prism-editor__textarea:focus {
   outline: none;
+}
+/* div.prism-editor-wrapper {
+    max-height: 200px;
+    max-width: 100px;
+    overflow-y: auto;
+    overflow-x: scroll;
+} */
+.prism-editor-wrapper .prism-editor__editor, .prism-editor-wrapper .prism-editor__textarea {
+  overflow-wrap: anywhere;
+  font-size: 12px;
 }
 </style>
