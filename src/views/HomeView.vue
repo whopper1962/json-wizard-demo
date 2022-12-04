@@ -2,7 +2,13 @@
   <div class="home">
     <div class="converter-title">
       <h3>XLSX JSON Converter</h3>
-      <p>Created by @whopper1962</p>
+      <p>Created by
+        <a
+          href="https://github.com/whopper1962"
+          target="_blank"
+          rel="noopener noreferrer"
+        >@whopper1962</a>
+      </p>
     </div>
     <div class="xlsx-json-contents">
       <div class="split-item split-item-outer">
