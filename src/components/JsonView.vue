@@ -5,7 +5,9 @@
     <div class="json-contents-inner">
       <template v-if="converted">
         <div class="json-data-area">
-          <button @click="copyJsonToClipbord()">Copy to clipboard</button>
+          <button @click="copyJsonToClipbord()">
+            Copy to clipboard
+          </button>
         </div>
         <div class="json-display-area">
           <pre>{{ json }}</pre>

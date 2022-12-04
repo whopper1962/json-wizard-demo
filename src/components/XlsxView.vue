@@ -403,7 +403,6 @@ export default {
 }
 .xlsx-table {
   font-family: 'Menlo', sans-serif;
-  margin-top: 10px;
   width: 100%;
   background-color: rgb(189, 189, 189);
 }
@@ -418,7 +417,7 @@ export default {
   font-size: 12px;
   position: relative;
   overflow-y: auto;
-  height: 70%;
+  height: 75%;
 }
 .sticky-table table {
   border: 1px solid #DDD;
@@ -455,6 +454,7 @@ export default {
 }
 .sheet-select-area {
   color: white;
+  font-weight: bold;
 }
 .delete-row-button-area {
   width: 1%;
