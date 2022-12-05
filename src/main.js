@@ -7,11 +7,23 @@ Vue.config.productionTip = false
 
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faRotateRight, faTrash, faTrashArrowUp } from '@fortawesome/free-solid-svg-icons'
+import {
+  faTrash,
+  faTrashArrowUp,
+  faHandPointRight,
+  faWandSparkles,
+  faHatWizard
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  faClipboard
+} from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const icons = [
-  faRotateRight,
+  faWandSparkles,
+  faHatWizard,
+  faClipboard,
+  faHandPointRight,
   faTrash,
   faTrashArrowUp
 ];

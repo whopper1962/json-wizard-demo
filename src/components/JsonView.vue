@@ -7,6 +7,7 @@
         <div class="json-data-area">
           <button @click="copyJsonToClipbord()">
             Copy to clipboard
+            <font-awesome-icon icon="fa-regular fa-clipboard" class="icon"/>
           </button>
         </div>
         <CodeEditor
@@ -97,12 +98,13 @@ export default {
 <style scoped>
 .json-title {
   font-family: 'Marker Felt';
+  color: white;
   width: 100%;
 }
 .json-view {
   border-radius: 10px;
   border: solid black;
-  background-color: rgb(164, 164, 164);
+  background-color: rgb(118, 117, 117);
   width: 100%;
   height: 80vh;
 }
@@ -125,8 +127,8 @@ export default {
   padding: 10px;
 }
 .json-contents-inner {
-  border: solid black;
-  background-color: rgb(118, 117, 117);
+  /* border: solid black; */
+  /* background-color: rgb(118, 117, 117); */
   height: 99%;
 }
 .file-format-error {
@@ -149,7 +151,10 @@ export default {
   overflow-y: auto;
 }
 .json-data-area {
-  margin: 20px;
+  /* margin: 20px; */
   text-align: left;
+}
+.icon {
+  margin-left: 5px;
 }
 </style>

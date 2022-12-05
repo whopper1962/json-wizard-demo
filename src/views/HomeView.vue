@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="converter-title">
-      <h3>XLSX JSON Converter</h3>
+      <h3>XLSX JSON Converter<font-awesome-icon icon="fa-solid fa-hat-wizard" /></h3>
       <p>Created by
         <a
           href="https://github.com/whopper1962"

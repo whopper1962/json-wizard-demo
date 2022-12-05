@@ -39,7 +39,7 @@
           :disabled="keyOrders.length == 0 || valueIndex === null"
           @click="execConvertion()"
         >
-          Execute convertion
+          Execute convertion<font-awesome-icon icon="fa-solid fa-wand-sparkles" class="icon"/>
         </button>
         <button
           @click="initXlsxForm()"
@@ -47,6 +47,7 @@
           Select other file
         </button><br/>
         <div class="sheet-select-area">
+          <font-awesome-icon icon="fa-solid fa-hand-point-right"/>
           Selected sheet: <select
             class="sheet-select"
             v-model="selectedSheet"
@@ -62,7 +63,9 @@
           </select>
         </div>
         <div class="sheet-select-area">
+          <font-awesome-icon icon="fa-solid fa-hand-point-right" />
           Number of rows: {{ selectedSheetContents.length }}<br>
+          <font-awesome-icon icon="fa-solid fa-hand-point-right" />
           Number of excluded rows: {{ excludedRows.length }}
         </div>
       </div>
@@ -353,6 +356,7 @@ export default {
 <style scoped>
 .xlsx-title {
   font-family: 'Marker Felt';
+  color: white;
   width: 100%;
 }
 .xlsx-convertion-data-table {
@@ -369,7 +373,7 @@ export default {
   border-radius: 10px;
   position: relative;
   border: solid black;
-  background-color: rgb(164, 164, 164);
+  background-color: rgb(118, 117, 117);
   width: 100%;
   height: 80vh;
 }
@@ -389,7 +393,7 @@ export default {
   padding: 5px;
   background-color: white !important;
   font-family: 'Menlo', sans-serif;
-  border: solid black !important;
+  /* border: solid black !important; */
   color: rgb(255, 52, 52);
 }
 .convert-button {
@@ -401,8 +405,8 @@ export default {
 }
 .xlsx-contents-inner {
   /* font-size: 12px; */
-  border: solid black;
-  background-color: rgb(118, 117, 117);
+  /* border: solid black; */
+  /* background-color: rgb(118, 117, 117); */
   height: 99%;
 }
 .xlsx-table {
@@ -435,7 +439,7 @@ export default {
   background-color: rgb(255, 188, 79);
 }
 .xlsx-convertion-data-area {
-  margin: 5px;
+  margin-bottom: 5px;
   text-align: left;
 }
 .xlsx-convertion-data-area button {
@@ -466,5 +470,8 @@ export default {
 }
 .delete-row-button-area button{
   width: 100%;
+}
+.icon {
+  margin-left: 5px;
 }
 </style>
