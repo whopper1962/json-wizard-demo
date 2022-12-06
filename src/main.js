@@ -1,12 +1,11 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import store from './store';
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
-
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faTrash,
   faTrashArrowUp,
@@ -17,7 +16,7 @@ import {
 import {
   faClipboard
 } from '@fortawesome/free-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 const icons = [
   faWandSparkles,
@@ -32,8 +31,33 @@ library.add(icons);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
+import VueI18n from 'vue-i18n';
+
+Vue.use(VueI18n);
+
+const messages = {
+  en: {
+    message: {
+      welcome: 'Welcome to Your XLSX Json Converter!',
+    }
+  },
+  ja: {
+    message: {
+      welcome: 'XLSX Json Converterへようこそ!',
+    }
+  }
+};
+
+const locale = localStorage.getItem('lang') || 'ja';
+
+const i18n = new VueI18n({
+  locale,
+  messages
+});
+
 new Vue({
   router,
   store,
-  render: h => h(App)
-}).$mount('#app')
+  i18n,
+  render: h => h(App),
+}).$mount('#app');

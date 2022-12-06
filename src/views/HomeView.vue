@@ -9,6 +9,7 @@
           rel="noopener noreferrer"
         >@whopper1962</a>
       </p>
+      <p>{{ $t("message.welcome") }}</p>
     </div>
     <div class="xlsx-json-contents">
       <div class="split-item split-item-outer">
