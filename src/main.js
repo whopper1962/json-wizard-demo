@@ -39,11 +39,19 @@ const messages = {
   en: {
     message: {
       welcome: 'Welcome to Your XLSX Json Converter!',
+    },
+    lang: {
+      ja: 'Japanese',
+      en: 'English'
     }
   },
   ja: {
     message: {
       welcome: 'XLSX Json Converterへようこそ!',
+    },
+    lang: {
+      ja: '日本語',
+      en: '英語'
     }
   }
 };

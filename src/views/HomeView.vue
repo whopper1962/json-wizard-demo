@@ -10,6 +10,15 @@
         >@whopper1962</a>
       </p>
       <p>{{ $t("message.welcome") }}</p>
+      <div class="lang-select-box">
+        <select
+          v-model="selectedLang"
+          @change="changeLang()"
+        >
+          <option value="ja">{{ $t('lang.ja') }}</option>
+          <option value="en">{{ $t('lang.en') }}</option>
+        </select>
+      </div>
     </div>
     <div class="xlsx-json-contents">
       <div class="split-item split-item-outer">
@@ -36,10 +45,22 @@ export default {
     JsonView,
     XlsxView
   },
+  data () {
+    return {
+      selectedLang: 'ja'
+    };
+  },
+  created () {
+    this.selectedLang = localStorage.getItem('lang') || 'ja';
+  },
   methods: {
     execConvert() {
       xlsxJsonConverter();
     },
+    changeLang () {
+      localStorage.setItem('lang', this.selectedLang);
+      this.$i18n.locale = localStorage.getItem('lang');
+    }
   },
 };
 </script>
@@ -64,5 +85,7 @@ export default {
 .split-item-outer {
   height: 70vh;
   width: 50%;
+}
+.lang-select-box {
 }
 </style>
