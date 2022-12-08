@@ -1,6 +1,6 @@
 <template>
 <div class="xlsx-view">
-  <h3 class="xlsx-title">XLSX</h3>
+  <h3 class="xlsx-title">{{ $t('xlsx.title') }}</h3>
   <div
     v-if="converted"
     class="xlsx-contents-outer"
@@ -12,43 +12,45 @@
           border="5"
         >
           <tr>
-            <th v-if="keyOrders.length === 0">Key1</th>
+            <th v-if="keyOrders.length === 0">{{ $t('xlsx.key') }}1</th>
             <th
               v-for="(column, index) in keyOrders"
               :key="`column_${index}`"
             >
-              Key{{ index + 1 }}
+              {{ $t('xlsx.column') }}{{ index + 1 }}
             </th>
-            <th class="bkc-other">Value</th>
+            <th class="bkc-other">{{ $t('xlsx.value') }}</th>
           </tr>
           <tr>
             <td v-if="keyOrders.length === 0">
-              Select column
+              {{ $t('xlsx.selectColumn') }}
             </td>
             <td
               v-for="(column, index) in keyOrders"
               :key="`column_${index}`"
             >
-              Column{{ column + 1 }}
+              {{ $t('xlsx.column') }}{{ column + 1 }}
             </td>
-            <td v-if="valueIndex !== null">Column{{ valueIndex + 1 }}</td>
-            <td v-else class="placeholder-style">Select column</td>
+            <td v-if="valueIndex !== null">{{ $t('xlsx.column') }}{{ valueIndex + 1 }}</td>
+            <td v-else class="placeholder-style">{{ $t('xlsx.selectColumn') }}n</td>
           </tr>
         </table>
         <button
           :disabled="keyOrders.length == 0 || valueIndex === null"
           @click="execConvertion()"
         >
-          Execute convertion<font-awesome-icon icon="fa-solid fa-wand-sparkles" class="icon"/>
+          {{ $t('xlsx.execCovertion') }}
+          <font-awesome-icon icon="fa-solid fa-wand-sparkles" class="icon"/>
         </button>
         <button
           @click="initXlsxForm()"
         >
-          Select other file
+          {{ $t('xlsx.selectOtherFile') }}
         </button><br/>
         <div class="sheet-select-area">
           <font-awesome-icon icon="fa-solid fa-hand-point-right"/>
-          Selected sheet: <select
+          {{ $t('xlsx.selectedSheet') }}:
+          <select
             class="sheet-select"
             v-model="selectedSheet"
             @change="changeSheet()"
@@ -64,9 +66,9 @@
         </div>
         <div class="sheet-select-area">
           <font-awesome-icon icon="fa-solid fa-hand-point-right" />
-          Number of rows: {{ selectedSheetContents.length }}<br>
+          {{ $t('xlsx.numberOfRows') }}: {{ selectedSheetContents.length }}<br>
           <font-awesome-icon icon="fa-solid fa-hand-point-right" />
-          Number of excluded rows: {{ excludedRows.length }}
+          {{ $t('xlsx.numberOfExcludedRows') }}: {{ excludedRows.length }}
         </div>
       </div>
       <div class="sticky-table">
@@ -85,7 +87,7 @@
                     :disabled="index === valueIndex"
                     v-model="keyOrderArr[index]"
                     @change="orderChecked(index)"
-                  />Add to keys
+                  />{{ $t('xlsx.addToKeys') }}:
                 </label>
               </td>
             </tr>
@@ -101,7 +103,7 @@
                     type="radio"
                     name="value"
                     @change="valueChecked(num - 1)"
-                  />Set to value
+                  />{{ $t('xlsx.setToValue') }}
                 </label>
               </td>
             </tr>
@@ -111,7 +113,7 @@
                 v-for="num of selectedSheetMaxLen"
                 :key="`num_${num}`"
               >
-                Column{{ num }}
+                {{ $t('xlsx.column') }}{{ num }}
               </th>
             </tr>
           </thead>
@@ -165,13 +167,13 @@
         @click="convert()"
         :disabled="!isFileInputed || !isValidFileFormat"
       >
-        Read
+        {{ $t('xlsx.read') }}
       </button>
       <p
         v-if="!isValidFileFormat"
         class="file-format-error"
       >
-        Invalid file format.
+        {{ $t('xlsx.invalidFileFormat') }}
       </p>
     </div>
   </div>

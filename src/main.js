@@ -36,24 +36,8 @@ import VueI18n from 'vue-i18n';
 Vue.use(VueI18n);
 
 const messages = {
-  en: {
-    message: {
-      welcome: 'Welcome to Your XLSX Json Converter!',
-    },
-    lang: {
-      ja: 'Japanese',
-      en: 'English'
-    }
-  },
-  ja: {
-    message: {
-      welcome: 'XLSX Json Converterへようこそ!',
-    },
-    lang: {
-      ja: '日本語',
-      en: '英語'
-    }
-  }
+  en: require('@/lib/locale/en.json'),
+  ja: require('@/lib/locale/ja.json')
 };
 
 const locale = localStorage.getItem('lang') || 'ja';
