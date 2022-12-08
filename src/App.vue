@@ -11,6 +11,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  line-height: 120%;
 }
 body {
   padding: 0;
@@ -24,6 +25,13 @@ nav {
 nav a {
   /* font-weight: bold; */
   color: #2c3e50;
+}
+
+.line-height-none {
+  line-height: 0px;
+}
+p {
+  line-height: 5px;
 }
 
 nav a.router-link-exact-active {
