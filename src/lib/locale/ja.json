@@ -1,0 +1,24 @@
+{
+  "message": {
+    "welcome": "XLSX Json Converterへようこそ!"
+  },
+  "lang": {
+    "ja": "日本語",
+    "en": "英語"
+  },
+  "xlsx": {
+    "selectColumn": "カラムを選択してください",
+    "column": "カラム",
+    "key": "キー",
+    "value": "バリュー",
+    "execCovertion": "変換を実行",
+    "selectOtherFile": "他のファイルを選択",
+    "selectedSheet": "選択されているシート",
+    "numberOfRows": "列の数",
+    "numberOfExcludedRows": "除外対象の列",
+    "addToKeys": "キーに追加",
+    "setToValue": "バリューとして選択",
+    "read": "読み込み実行",
+    "invalidFileFormat": "ファイルのフォーマットが不正です"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "message": {
+    "welcome": "Welcome to Your XLSX Json Converter!"
+  },
+  "lang": {
+    "ja": "Japanese",
+    "en": "English"
+  },
+  "xlsx": {
+    "selectColumn": "Select column",
+    "column": "Column",
+    "key": "Key",
+    "value": "Value",
+    "execCovertion": "Exec convertion",
+    "selectOtherFile": "Select other file",
+    "selectedSheet": "Selected sheet",
+    "numberOfRows": "Number of rows",
+    "numberOfExcludedRows": "Nunber of excluded rows",
+    "addToKeys": "Add to keys",
+    "setToValue": "Set as value",
+    "read": "Read",
+    "invalidFileFormat": "Invalid file format"
+  }
+}
