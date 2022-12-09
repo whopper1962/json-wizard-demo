@@ -1,12 +1,12 @@
 <template>
 <div class="json-view">
-  <h3 class="json-title">JSON</h3>
+  <h3 class="json-title">{{ $t('json.title') }}</h3>
   <div class="json-contents-outer">
     <div class="json-contents-inner">
       <template v-if="converted">
         <div class="json-data-area">
           <button @click="copyJsonToClipbord()">
-            Copy to clipboard
+            {{ $t('json.copyToClipboard') }}
             <font-awesome-icon icon="fa-regular fa-clipboard" class="icon"/>
           </button>
         </div>

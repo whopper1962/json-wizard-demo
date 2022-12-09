@@ -22,6 +22,10 @@
     "read": "Read",
     "invalidFileFormat": "Invalid file format"
   },
+  "json": {
+    "title": "JSON",
+    "copyToClipboard": "Copy to clipboard"
+  },
   "error": {
     "duplication": "Duplicated key detected! Please check highlighted rows and execute again.",
     "nullKey": "Key can't be null! Please check highlighted rows and execute again."

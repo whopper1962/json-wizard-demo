@@ -7,6 +7,7 @@
     "en": "英語"
   },
   "xlsx": {
+    "title": "XLSX",
     "selectColumn": "カラムを選択してください",
     "column": "カラム",
     "key": "キー",
@@ -20,6 +21,10 @@
     "setToValue": "バリューとして選択",
     "read": "読み込み実行",
     "invalidFileFormat": "ファイルのフォーマットが不正です"
+  },
+  "json": {
+    "title": "JSON",
+    "copyToClipboard": "クリップボードにコピー"
   },
   "error": {
     "duplication": "キーの重複が検知されました。ハイライトされた行を確認し、再度実行してください。",
