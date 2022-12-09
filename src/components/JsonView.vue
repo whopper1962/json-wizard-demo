@@ -22,10 +22,10 @@
         class="file-input-form"
       >
         <div v-if="isDuplicateKeyError" class="file-format-error">
-          ❗️Duplicated key detected! Please check highlighted rows and execute again.
+          ❗️{{ $t('error.duplication') }}
         </div>
         <div v-if="isInvalidKeyError" class="file-format-error">
-          ❗️Key can't be null! Please check highlighted rows and execute again.
+          ❗️{{ $t('error.nullKey') }}
         </div>
       </div>
     </div>
