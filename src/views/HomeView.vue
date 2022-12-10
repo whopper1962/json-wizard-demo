@@ -105,6 +105,7 @@ export default {
   width: 50%;
 }
 .nav-bar {
+  margin-top: 0.5%;
   display: flex;
   justify-content: center;
   position: relative;

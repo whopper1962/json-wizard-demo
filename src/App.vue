@@ -14,6 +14,10 @@
   line-height: 120%;
   /* background-color: #2c3e50; */
 }
+html {
+  height: 100vh;
+  background-color: #41576c;
+}
 body {
   padding: 0;
   margin: 0;
