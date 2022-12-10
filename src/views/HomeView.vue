@@ -1,28 +1,42 @@
 <template>
   <div class="home">
     <div class="converter-title">
-      <div class="nav-bar">
-        <h3 class="center line-height-none">
-          XLSX JSON Converter
-          <font-awesome-icon icon="fa-solid fa-hat-wizard" />
-        </h3>
-        <div class="right lang-select-box-area">
-          <select
-            v-model="selectedLang"
-            @change="changeLang()"
-          >
-            <option value="ja">{{ $t('lang.ja') }}</option>
-            <option value="en">{{ $t('lang.en') }}</option>
-          </select>
+        <!-- <div class="left">
+        </div> -->
+        <div class="nav-bar">
+          <div class="flex">
+            <img class="icon" src="wizard.png"/>
+            <div>
+              <h3 class="title">
+                JSON Wizard
+              </h3>
+              <!-- <span class="github">
+                Created by
+                <a
+                  href="https://github.com/whopper1962"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >@whopper1962</a>
+              </span> -->
+            </div>
+          </div>
+          <div class="right lang-select-box-area">
+            <select
+              v-model="selectedLang"
+              @change="changeLang()"
+            >
+              <option value="ja">{{ $t('lang.ja') }}</option>
+              <option value="en">{{ $t('lang.en') }}</option>
+            </select>
+          </div>
         </div>
-      </div>
-      <p class="line-height-none">Created by
+      <!-- <p class="line-height-none">Created by
         <a
           href="https://github.com/whopper1962"
           target="_blank"
           rel="noopener noreferrer"
         >@whopper1962</a>
-      </p>
+      </p> -->
     </div>
     <div class="xlsx-json-contents">
       <div class="split-item split-item-outer">
@@ -40,7 +54,7 @@
 </template>
 
 <script>
-import xlsxJsonConverter from "@/lib/xlsx-json-converter";
+import xlsxJsonConverter from "@/lib/json-wizard";
 import JsonView from '@/components/JsonView';
 import XlsxView from '@/components/XlsxView';
 
@@ -71,12 +85,12 @@ export default {
 
 <style scoped>
 .converter-title {
-  font-family: 'Marker Felt';
+  font-family: 'Trattatello';
 }
 .xlsx-json-contents {
   display: table;
   width: 100%;
-  margin-top: 20px;
+  /* margin-top: 20px; */
 }
 .split-item {
   display: table-cell;
@@ -99,11 +113,39 @@ export default {
   position: absolute;
   right: 0;
 }
+.left {
+  position: absolute;
+  left: 0;
+}
 .lang-select-box-area {
   margin-right: 2%;
   margin-top: 1%;
 }
 .lang-select-box-area select {
   width: 100px;
+}
+.icon {
+  height: 100px;
+  margin-right: 5%;
+  vertical-align: middle;
+}
+.created-by {
+  font-size: 13px;
+}
+.flex {
+  display: flex;
+}
+.github {
+  font-size: 20px;
+  display: block;
+  margin-top: 6%;
+}
+.title {
+  font-family: 'Trattatello';
+  line-height: 0%;
+  font-size: 50px;
+  font-weight: bold;
+  white-space: nowrap;
+  color: rgb(34, 0, 112);
 }
 </style>

@@ -1,4 +1,4 @@
-# xlsx-json-converter
+# json-wizard
 
 ## Project setup
 ```

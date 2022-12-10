@@ -97,7 +97,7 @@ export default {
 
 <style scoped>
 .json-title {
-  font-family: 'Marker Felt';
+  font-family: 'Trattatello';
   color: white;
   width: 100%;
 }

@@ -181,7 +181,7 @@
 </template>
 
 <script>
-import xlsxJsonConverter from '@/lib/xlsx-json-converter';
+import xlsxJsonConverter from '@/lib/json-wizard';
 import readXlsxFile from 'read-excel-file';
 import * as XLSX from 'xlsx';
 
@@ -357,7 +357,7 @@ export default {
 
 <style scoped>
 .xlsx-title {
-  font-family: 'Marker Felt';
+  font-family: 'Trattatello';
   color: white;
   width: 100%;
 }
