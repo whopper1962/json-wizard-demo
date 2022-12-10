@@ -12,6 +12,10 @@ module.exports = class JsonGenerator {
     for (const row of this.contents) {
       const valueArr = [];
       for (const keyIndex of this.parents) {
+        if (row[keyIndex] === null) {
+          valueArr.push('');
+          continue;
+        }
         valueArr.push(row[keyIndex]);
       }
       this.orderedKeys.push(valueArr);
@@ -28,13 +32,13 @@ module.exports = class JsonGenerator {
       let masterObj = this.json;
       for (const [keyIndex, currentKey] of keys.entries()) {
         if (keyIndex === keys.length - 1) {
-          if (currentKey === null) {
+          if (currentKey === '') {
             this.nullKeys.push(index);
             continue;
           }
           masterObj[currentKey] = this.contents[index][this.valueIndex];
         } else {
-          if (currentKey === null) continue;
+          if (currentKey === '') continue;
           if (!isKeyExists(masterObj, currentKey)) {
             masterObj[currentKey] = {};
           }
@@ -46,10 +50,10 @@ module.exports = class JsonGenerator {
 
   checkDuplicates() {
     let duplicates = [];
-    const frequency = this.orderedKeys.reduce(function (
+    const frequency = this.orderedKeys.reduce((
       seen,
       currentItem
-    ) {
+    ) => {
       if (currentItem in seen) {
         seen[currentItem] = seen[currentItem] + 1;
       } else {
@@ -63,7 +67,7 @@ module.exports = class JsonGenerator {
       if (this.excludedKeyPaths.includes(joinedKey)) continue;
       if (frequency[key] > 1) {
         duplicates.push(
-          key.split(",").map(function (currentItem) {
+          key.split(",").map((currentItem) => {
             return currentItem;
           })
         );
