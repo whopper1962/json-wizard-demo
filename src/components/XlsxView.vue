@@ -1,7 +1,8 @@
 <template>
 <div class="xlsx-view">
   <h3 class="xlsx-title line-height-none">
-    {{ $t('xlsx.title') }}
+    <!-- {{ $t('xlsx.title') }} -->
+    SOURCE
   </h3>
   <div
     v-if="converted"
@@ -159,31 +160,58 @@
     v-else
     class="file-input-form"
   >
-    <input
-      type="file"
-      accept=".xls,.xlsx,.csv"
-      @change="fileInputed"
-    >
-    <div class="convert-button">
-      <button
-        @click="convert()"
-        :disabled="!isFileInputed || !isValidFileFormat"
-      >
-        {{ $t('xlsx.read') }}
-      </button>
-      <p
-        v-if="!isValidFileFormat"
-        class="file-format-error"
-      >
-        {{ $t('xlsx.invalidFileFormat') }}
-      </p>
+    <div class="xlsx-to-json">
+      <div class="json-to-xlsx-inner">
+        <div class="tips">
+          {{ $t('message.createJSONFromXlsx') }}
+        </div>
+        <input
+          type="file"
+          accept=".xls,.xlsx,.csv"
+          @change="fileInputed"
+        >
+        <div class="convert-button">
+          <button
+            @click="convert()"
+            :disabled="!isFileInputed || !isValidFileFormat"
+          >
+            {{ $t('xlsx.read') }}
+          </button>
+          <p
+            v-if="!isValidFileFormat"
+            class="file-format-error"
+          >
+            {{ $t('xlsx.invalidFileFormat') }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="json-to-xlsx">
+      <div class="json-to-xlsx-inner">
+        <div class="tips">
+          {{ $t('message.createXlsxFromJSON') }}
+        </div>
+        <input
+          type="file"
+          accept=".json"
+          @change="jsonInputed"
+        >
+        <div class="convert-button">
+          <button
+            @click="convert()"
+            :disabled="true"
+          >
+            {{ $t('xlsx.download') }}
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 </template>
 
 <script>
-import xlsxJsonConverter from '@/lib/json-wizard';
+import xlsxJsonConverter from '@/lib/json-wizard/xlsx-to-json';
 import readXlsxFile from 'read-excel-file';
 import * as XLSX from 'xlsx';
 
@@ -213,10 +241,26 @@ export default {
       this.isValidFileFormat = true;
       const fileContents = event.target.files ? event.target.files[0] : null;
       if (!fileContents) return;
+      const inputedFileExtension = fileContents.name.split('.').pop();
+      if (inputedFileExtension === 'csv') {
+        this.readCsv(fileContents);
+      } else {
+        this.readXlsx(fileContents);
+      }
+    },
+    async jsonInputed (event) {
+      const fileContents = event.target.files ? event.target.files[0] : null;
+      if (!fileContents) return;
+      console.error(fileContents);
+    },
+    async readXlsx (fileContents) {
       await this.setSheetNames(fileContents);
       await this.readSheets(fileContents, this.sheetNames);
       this.selectedSheet = this.sheetNames[0];
       this.changeSheet();
+    },
+    readCsv (fileContents) {
+      console.error(fileContents);
     },
     setSheetNames (fileContents) {
       return new Promise((resolve) => {
@@ -382,7 +426,8 @@ export default {
   height: 80vh;
 }
 .file-input-form {
-  position: absolute;
+  height: 90%;
+  /* position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
@@ -390,7 +435,7 @@ export default {
   margin: auto;
   width: 80%;
   height: 3.2rem;
-  vertical-align: middle;
+  vertical-align: middle; */
 }
 .file-format-error {
   margin: 5px;
@@ -478,5 +523,44 @@ export default {
 }
 .icon {
   margin-left: 5px;
+}
+.xlsx-to-json {
+  border: solid black;
+  position: relative;
+  height: 50%;
+  border-radius: 8px;
+  margin: 10px;
+}
+.xlsx-to-json-inner {
+  /* font-weight: bold; */
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 80%;
+  height: 3.2rem;
+}
+.json-to-xlsx {
+  height: 50%;
+  border: solid black;
+  position: relative;
+  border-radius: 8px;
+  margin: 10px;
+}
+.json-to-xlsx-inner {
+  /* font-weight: bold; */
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 80%;
+  height: 3.2rem;
+}
+.tips {
+  margin-bottom: 15px;
 }
 </style>

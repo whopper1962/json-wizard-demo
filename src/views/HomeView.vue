@@ -25,8 +25,8 @@
               v-model="selectedLang"
               @change="changeLang()"
             >
-              <option value="ja">{{ $t('lang.ja') }}</option>
               <option value="en">{{ $t('lang.en') }}</option>
+              <option value="ja">{{ $t('lang.ja') }}</option>
             </select>
           </div>
         </div>
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import xlsxJsonConverter from "@/lib/json-wizard";
+import xlsxJsonConverter from "@/lib/json-wizard/xlsx-to-json";
 import JsonView from '@/components/JsonView';
 import XlsxView from '@/components/XlsxView';
 
@@ -127,7 +127,7 @@ export default {
 }
 .icon {
   height: 100px;
-  margin-right: 5%;
+  margin-right: 17px;
   vertical-align: middle;
 }
 .created-by {

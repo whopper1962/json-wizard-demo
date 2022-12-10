@@ -1,6 +1,7 @@
 {
   "message": {
-    "welcome": "Welcome to Your XLSX Json Converter!"
+    "createJSONFromXlsx": "Create JSON from XLSX or CSV",
+    "createXlsxFromJSON": "Create XLSX or CSV from JSON"
   },
   "lang": {
     "ja": "Japanese",
@@ -12,7 +13,7 @@
     "column": "Column",
     "key": "Key",
     "value": "Value",
-    "execCovertion": "Exec conversion",
+    "execCovertion": "Execute conversion",
     "selectOtherFile": "Select other file",
     "selectedSheet": "Selected sheet",
     "numberOfRows": "Number of rows",
@@ -20,6 +21,7 @@
     "addToKeys": "Add to keys",
     "setToValue": "Set as value",
     "read": "Read",
+    "download": "download",
     "invalidFileFormat": "Invalid file format"
   },
   "json": {

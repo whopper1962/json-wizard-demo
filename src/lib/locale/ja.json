@@ -1,6 +1,7 @@
 {
   "message": {
-    "welcome": "XLSX Json Converterへようこそ!"
+    "createJSONFromXlsx": "XLSXまたはCSVからJSONを作成",
+    "createXlsxFromJSON": "JSONからXLSXまたはCSVを作成"
   },
   "lang": {
     "ja": "日本語",
@@ -20,6 +21,7 @@
     "addToKeys": "キーに追加",
     "setToValue": "バリューとして選択",
     "read": "読み込み実行",
+    "download": "ダウンロード",
     "invalidFileFormat": "ファイルのフォーマットが不正です"
   },
   "json": {

@@ -1,4 +1,4 @@
-const JsonGenerator = require('@/lib/json-wizard/json-generator');
+const JsonGenerator = require('@/lib/json-wizard/xlsx-to-json/json-generator');
 
 module.exports = function (xlsxObj) {
   const jsonGenerator = new JsonGenerator({...xlsxObj});
