@@ -1,6 +1,8 @@
 <template>
 <div class="json-view">
-  <h3 class="json-title">{{ $t('json.title') }}</h3>
+  <h3 class="json-title line-height-none">
+    {{ $t('json.title') }}
+  </h3>
   <div class="json-contents-outer">
     <div class="json-contents-inner">
       <template v-if="converted">
@@ -125,6 +127,7 @@ export default {
 .json-contents-outer {
   height: 90%;
   padding: 10px;
+  padding: 0px 10px 10px 10px;
 }
 .json-contents-inner {
   /* border: solid black; */

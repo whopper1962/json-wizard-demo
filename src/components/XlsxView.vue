@@ -1,6 +1,8 @@
 <template>
 <div class="xlsx-view">
-  <h3 class="xlsx-title">{{ $t('xlsx.title') }}</h3>
+  <h3 class="xlsx-title line-height-none">
+    {{ $t('xlsx.title') }}
+  </h3>
   <div
     v-if="converted"
     class="xlsx-contents-outer"
@@ -403,7 +405,7 @@ export default {
 }
 .xlsx-contents-outer {
   height: 90%;
-  padding: 10px;
+  padding: 0px 10px 10px 10px;
 }
 .xlsx-contents-inner {
   /* font-size: 12px; */
@@ -427,7 +429,7 @@ export default {
   font-size: 12px;
   position: relative;
   overflow-y: auto;
-  height: 65%;
+  height: 74%;
 }
 .sticky-table table {
   border: 1px solid #DDD;
