@@ -6,9 +6,9 @@
     class="xlsx-contents-outer"
   >
     <div class="xlsx-contents-inner">
-      <div class="xlsx-convertion-data-area">
+      <div class="xlsx-conversion-data-area">
         <table
-          class="xlsx-convertion-data-table"
+          class="xlsx-conversion-data-table"
           border="5"
         >
           <tr>
@@ -17,7 +17,7 @@
               v-for="(column, index) in keyOrders"
               :key="`column_${index}`"
             >
-              {{ $t('xlsx.column') }}{{ index + 1 }}
+              {{ $t('xlsx.key') }}{{ index + 1 }}
             </th>
             <th class="bkc-other">{{ $t('xlsx.value') }}</th>
           </tr>
@@ -37,7 +37,7 @@
         </table>
         <button
           :disabled="keyOrders.length == 0 || valueIndex === null"
-          @click="execConvertion()"
+          @click="execconversion()"
         >
           {{ $t('xlsx.execCovertion') }}
           <font-awesome-icon icon="fa-solid fa-wand-sparkles" class="icon"/>
@@ -315,7 +315,7 @@ export default {
         this.contentsToConversion.splice(excludedRowIndex, 1);
       }
     },
-    execConvertion () {
+    execconversion () {
       this.$store.dispatch('setJson', {});
       this.$store.dispatch('setDuplicationErrorStatus', false);
       this.$store.dispatch('setInvalidKeyErrorStatus', false);
@@ -361,14 +361,14 @@ export default {
   color: white;
   width: 100%;
 }
-.xlsx-convertion-data-table {
+.xlsx-conversion-data-table {
   font-size: 12px;
   font-family: 'Menlo', sans-serif;
   width: 100%;
   background-color: white;
   margin-bottom: 10px;
 }
-.xlsx-convertion-data-table th {
+.xlsx-conversion-data-table th {
   background-color: rgb(116, 190, 104);
 }
 .xlsx-view {
@@ -440,11 +440,12 @@ export default {
 .bgc-data {
   background-color: rgb(255, 188, 79);
 }
-.xlsx-convertion-data-area {
+.xlsx-conversion-data-area {
   margin-bottom: 5px;
   text-align: left;
+  /* font-size: 5px; */
 }
-.xlsx-convertion-data-area button {
+.xlsx-conversion-data-area button {
   margin-right: 10px;
 }
 .background-color-white {
