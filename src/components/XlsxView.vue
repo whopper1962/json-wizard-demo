@@ -32,7 +32,7 @@
               {{ $t('xlsx.column') }}{{ column + 1 }}
             </td>
             <td v-if="valueIndex !== null">{{ $t('xlsx.column') }}{{ valueIndex + 1 }}</td>
-            <td v-else class="placeholder-style">{{ $t('xlsx.selectColumn') }}n</td>
+            <td v-else class="placeholder-style">{{ $t('xlsx.selectColumn') }}</td>
           </tr>
         </table>
         <button
@@ -87,7 +87,7 @@
                     :disabled="index === valueIndex"
                     v-model="keyOrderArr[index]"
                     @change="orderChecked(index)"
-                  />{{ $t('xlsx.addToKeys') }}:
+                  />{{ $t('xlsx.addToKeys') }}
                 </label>
               </td>
             </tr>

@@ -1,26 +1,28 @@
 <template>
   <div class="home">
     <div class="converter-title">
-      <h3 class="line-height-none">
-        XLSX JSON Converter
-        <font-awesome-icon icon="fa-solid fa-hat-wizard" />
-      </h3>
-      <p>Created by
+      <div class="nav-bar">
+        <h3 class="center line-height-none">
+          XLSX JSON Converter
+          <font-awesome-icon icon="fa-solid fa-hat-wizard" />
+        </h3>
+        <div class="right lang-select-box-area">
+          <select
+            v-model="selectedLang"
+            @change="changeLang()"
+          >
+            <option value="ja">{{ $t('lang.ja') }}</option>
+            <option value="en">{{ $t('lang.en') }}</option>
+          </select>
+        </div>
+      </div>
+      <p class="line-height-none">Created by
         <a
           href="https://github.com/whopper1962"
           target="_blank"
           rel="noopener noreferrer"
         >@whopper1962</a>
       </p>
-      <div class="lang-select-box">
-        <select
-          v-model="selectedLang"
-          @change="changeLang()"
-        >
-          <option value="ja">{{ $t('lang.ja') }}</option>
-          <option value="en">{{ $t('lang.en') }}</option>
-        </select>
-      </div>
     </div>
     <div class="xlsx-json-contents">
       <div class="split-item split-item-outer">
@@ -88,6 +90,20 @@ export default {
   height: 70vh;
   width: 50%;
 }
-.lang-select-box {
+.nav-bar {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.right {
+  position: absolute;
+  right: 0;
+}
+.lang-select-box-area {
+  margin-right: 2%;
+  margin-top: 1%;
+}
+.lang-select-box-area select {
+  width: 100px;
 }
 </style>
