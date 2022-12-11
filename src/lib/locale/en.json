@@ -16,6 +16,7 @@
     "value": "Value",
     "execCovertion": "Execute conversion",
     "selectOtherFile": "Select other file",
+    "selectedFile": "Selected file",
     "selectedSheet": "Selected sheet",
     "numberOfRows": "Number of rows",
     "numberOfExcludedRows": "Nunber of excluded rows",

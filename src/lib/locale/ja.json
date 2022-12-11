@@ -16,6 +16,7 @@
     "value": "バリュー",
     "execCovertion": "変換を実行",
     "selectOtherFile": "他のファイルを選択",
+    "selectedFile": "選択されているファイル",
     "selectedSheet": "選択されているシート",
     "numberOfRows": "列の数",
     "numberOfExcludedRows": "除外対象の列",

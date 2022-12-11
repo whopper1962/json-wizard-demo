@@ -51,6 +51,8 @@
           {{ $t('xlsx.selectOtherFile') }}
         </button><br/>
         <div class="sheet-select-area">
+          <font-awesome-icon icon="fa-solid fa-hand-point-right" />
+          {{ $t('xlsx.selectedFile') }}: {{ sourceFileName }}<br>
           <font-awesome-icon icon="fa-solid fa-hand-point-right"/>
           {{ $t('xlsx.selectedSheet') }}:
           <select
@@ -65,9 +67,7 @@
             >
               {{ sheetName }}
             </option>
-          </select>
-        </div>
-        <div class="sheet-select-area">
+          </select><br>
           <font-awesome-icon icon="fa-solid fa-hand-point-right" />
           {{ $t('xlsx.numberOfRows') }}: {{ selectedSheetContents.length }}<br>
           <font-awesome-icon icon="fa-solid fa-hand-point-right" />
@@ -242,7 +242,8 @@ export default {
       invalidRows: [],
       isInvalidJson: true,
       encodedUri: '',
-      csvFileName: ''
+      csvFileName: '',
+      sourceFileName: ''
     };
   },
   props: {},
@@ -252,7 +253,8 @@ export default {
       this.isValidFileFormat = true;
       const fileContents = event.target.files ? event.target.files[0] : null;
       if (!fileContents) return;
-      const inputedFileExtension = fileContents.name.split('.').pop();
+      this.sourceFileName = fileContents.name;
+      const inputedFileExtension = this.sourceFileName.split('.').pop();
       if (inputedFileExtension === 'csv') {
         this.readCsv(fileContents);
       } else {
@@ -374,6 +376,7 @@ export default {
       this.excludedRows = [];
       this.valueIndex = null;
       this.keyOrders = [];
+      this.sourceFileName = '';
       this.$store.dispatch('setJson', {});
       this.$store.dispatch('setDuplicationErrorStatus', false);
       this.$store.dispatch('setInvalidKeyErrorStatus', false);
@@ -472,7 +475,7 @@ export default {
   border: solid black;
   background-color: rgb(118, 117, 117);
   width: 100%;
-  height: 80vh;
+  height: 83vh;
 }
 .file-input-form {
   height: 90%;
@@ -523,7 +526,7 @@ export default {
   font-size: 12px;
   position: relative;
   overflow-y: auto;
-  height: 74%;
+  height: 76%;
 }
 .sticky-table table {
   border: 1px solid #DDD;
@@ -556,13 +559,11 @@ export default {
 .excluded-row td {
   background-color: rgb(179, 179, 179) !important;
 }
-.sheet-select {
-  margin-top: 10px;
-}
 .sheet-select-area {
   color: white;
   font-weight: bold;
   font-size: 13px;
+  margin-top: 10px;
 }
 .delete-row-button-area {
   width: 1%;
