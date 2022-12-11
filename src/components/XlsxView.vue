@@ -198,8 +198,8 @@
         >
         <div class="convert-button">
           <button
-            @click="convert()"
-            :disabled="true"
+            @click="downloadCsv()"
+            :disabled="isInvalidJson"
           >
             {{ $t('xlsx.download') }}
           </button>
@@ -232,7 +232,9 @@ export default {
       sheetNames: [],
       valueIndex: null,
       keyOrderArr: [],
-      invalidRows: []
+      invalidRows: [],
+      isInvalidJson: true,
+      encodedUri: ''
     };
   },
   props: {},
@@ -254,7 +256,16 @@ export default {
       if (!fileContents) return;
       try {
         const json = await this.readJson(fileContents);
-        jsonToXlsx(json);
+        this.encodedUri = jsonToXlsx(json);
+        this.isInvalidJson = false;
+      } catch (error) {
+        console.error(error);
+        this.isInvalidJson = true;
+      }
+    },
+    downloadCsv () {
+      try {
+        window.open(this.encodedUri);
       } catch (error) {
         console.error(error);
       }
