@@ -161,7 +161,7 @@
     class="file-input-form"
   >
     <div class="xlsx-to-json">
-      <div class="json-to-xlsx-inner">
+      <div class="xlsx-to-json-inner">
         <div class="tips">
           {{ $t('message.createJSONFromXlsx') }}
         </div>
@@ -197,6 +197,25 @@
           @change="jsonInputed"
         >
         <div class="convert-button">
+          {{ $t('xlsx.downloadFileType') }}:
+          <label>
+            <input
+              type="radio"
+              name="downloadFileType"
+              v-model="downloadFileType"
+              value="csv"
+            >CSV
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="downloadFileType"
+              v-model="downloadFileType"
+              value="xlsx"
+            >XLSX
+          </label>
+        </div>
+        <div class="convert-button">
           <input
             class="csv-file-name-form"
             type="text"
@@ -205,6 +224,7 @@
             v-model="csvFileName"
           />
           <button
+            class="csv-download-button"
             @click="downloadCsv()"
             :disabled="isInvalidJson"
           >
@@ -243,7 +263,8 @@ export default {
       isInvalidJson: true,
       encodedUri: '',
       csvFileName: '',
-      sourceFileName: ''
+      sourceFileName: '',
+      downloadFileType: 'csv'
     };
   },
   props: {},
@@ -608,12 +629,28 @@ export default {
   left: 0;
   margin: auto;
   width: 80%;
+  height: 10.2rem;
+}
+.xlsx-to-json-inner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 80%;
   height: 3.2rem;
+}
+.csv-download-button {
+  width: 120px;
+  height: 26px;
+  text-align: center;
 }
 .tips {
   margin-bottom: 15px;
 }
 .csv-file-name-form {
   width: 200px;
+  height: 20px;
 }
 </style>

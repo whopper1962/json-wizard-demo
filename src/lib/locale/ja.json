@@ -24,6 +24,7 @@
     "setToValue": "バリューとして選択",
     "read": "読み込み実行",
     "download": "ダウンロード",
+    "downloadFileType": "ダウンロードファイル形式",
     "invalidFileFormat": "ファイルのフォーマットが不正です"
   },
   "json": {

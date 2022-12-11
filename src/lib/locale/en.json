@@ -23,7 +23,8 @@
     "addToKeys": "Add to keys",
     "setToValue": "Set as value",
     "read": "Read",
-    "download": "download",
+    "download": "Download",
+    "downloadFileType": "Download file type",
     "invalidFileFormat": "Invalid file format"
   },
   "json": {
