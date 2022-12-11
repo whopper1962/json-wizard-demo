@@ -39,6 +39,10 @@
           </tr>
         </table>
         <button
+          class="exec-conversion-button"
+          :class="{
+            'disabled': keyOrders.length == 0 || valueIndex === null
+          }"
           :disabled="keyOrders.length == 0 || valueIndex === null"
           @click="execconversion()"
         >
@@ -46,6 +50,7 @@
           <font-awesome-icon icon="fa-solid fa-wand-sparkles" class="icon"/>
         </button>
         <button
+          class="select-other-files-button"
           @click="initXlsxForm()"
         >
           {{ $t('xlsx.selectOtherFile') }}
@@ -131,6 +136,7 @@
             >
               <td class="delete-row-button-area">
                 <button
+                  class="garbage-button"
                   v-if="excludedRows.includes(rowIndex)"
                   @click="addRow(rowIndex)"
                 >
@@ -138,6 +144,7 @@
                 </button>
                 <button
                   v-else
+                  class="garbage-button"
                   @click="deleteRow(rowIndex)"
                 >
                   <font-awesome-icon icon="fa-solid fa-trash" />
@@ -428,6 +435,7 @@ export default {
       this.keyOrders = [];
       this.sourceFileName = '';
       this.$store.dispatch('setJson', {});
+      this.$store.dispatch('setConversionFlag', false);
       this.$store.dispatch('setDuplicationErrorStatus', false);
       this.$store.dispatch('setInvalidKeyErrorStatus', false);
     },
@@ -465,6 +473,7 @@ export default {
     },
     execconversion () {
       this.$store.dispatch('setJson', {});
+      this.$store.dispatch('setConversionFlag', true);
       this.$store.dispatch('setDuplicationErrorStatus', false);
       this.$store.dispatch('setInvalidKeyErrorStatus', false);
       this.invalidRows = [];
@@ -496,6 +505,7 @@ export default {
           }
         }
       }
+      console.error('CONVERTED');
     }
   }
 }
@@ -580,15 +590,33 @@ export default {
   overflow-y: auto;
   height: 700px;
   box-sizing: border-box;
+  border-collapse:separate;
 }
 .sticky-table table {
+  height: 100%;
   border: 1px solid #DDD;
   vertical-align: middle;
   text-align: center;
   border-collapse: collapse;
   border-spacing: 0;
-  border-collapse:separate;
+  border-collapse: separate;
+  word-break:break-all;
+  table-layout: fixed;
 }
+.sticky-table td:first-child {
+  width: 2.3em !important;
+  text-align: center;
+}
+.sticky-table td {
+  height: 100%;
+}
+.garbage-button {
+  text-align: center;
+  height: 100%;
+}
+/* .garbage-button-area {
+  width: 1px !important;
+} */
 .bgc-data {
   background-color: rgb(255, 188, 79);
 }
@@ -619,7 +647,7 @@ export default {
   margin-top: 10px;
 }
 .delete-row-button-area {
-  width: 1%;
+  width: 1px;
 }
 .delete-row-button-area button{
   width: 100%;
@@ -684,5 +712,22 @@ export default {
 .csv-file-name-form {
   width: 200px;
   height: 20px;
+}
+.exec-conversion-button {
+  background-color: rgb(98, 185, 85);
+  padding: 4px;
+  border-radius: 5px;
+  width: 170px;
+  line-height: 120%;
+}
+.select-other-files-button {
+  /* background-color: rgb(182, 71, 71); */
+  padding: 4px;
+  border-radius: 5px;
+  width: 170px;
+  line-height: 120%;
+}
+.disabled {
+  background-color: rgb(153, 153, 153);
 }
 </style>

@@ -6,15 +6,19 @@
   <div class="json-contents-outer">
     <div class="json-contents-inner">
       <template v-if="converted">
-        <div class="json-data-area">
-          <button @click="copyJsonToClipbord()">
-            {{ $t('json.copyToClipboard') }}
-            <font-awesome-icon icon="fa-regular fa-clipboard" class="icon"/>
-          </button>
-        </div>
-        <CodeEditor
-          v-model="inputedJson"
-        />
+        <template
+          v-if="!isDuplicateKeyError && !isInvalidKeyError"
+        >
+          <div class="json-data-area">
+            <button @click="copyJsonToClipbord()">
+              {{ $t('json.copyToClipboard') }}
+              <font-awesome-icon icon="fa-regular fa-clipboard" class="icon"/>
+            </button>
+          </div>
+          <CodeEditor
+            v-model="inputedJson"
+          />
+        </template>
         <div
           v-if="isDuplicateKeyError || isInvalidKeyError"
           class="file-input-form"
@@ -69,7 +73,7 @@ export default {
       }
     },
     converted () {
-      return Object.keys(JSON.parse(this.json)).length > 0;
+      return this.$store.getters['getConversionFlag'];
     }
   },
   watch: {

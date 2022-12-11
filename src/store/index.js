@@ -8,7 +8,8 @@ export default new Vuex.Store({
     json: {},
     xlsxSheets: [],
     duplicationError: false,
-    invalidKeyError: false
+    invalidKeyError: false,
+    isConverted: false
   },
   getters: {
     getJson (state) {
@@ -22,6 +23,9 @@ export default new Vuex.Store({
     },
     getXlsxSheets (state) {
       return state.xlsxSheets;
+    },
+    getConversionFlag (state) {
+      return state.isConverted;
     }
   },
   mutations: {
@@ -36,6 +40,9 @@ export default new Vuex.Store({
     },
     SET_XLSX_SHEETS (state, sheets) {
       state.xlsxSheets = sheets;
+    },
+    SET_CONVERSION_FLAG (state, flag) {
+      state.isConverted = flag;
     }
   },
   actions: {
@@ -50,6 +57,9 @@ export default new Vuex.Store({
     },
     setXlsxSheets (context, sheets) {
       context.commit('SET_XLSX_SHEETS', sheets);
+    },
+    setConversionFlag (context, flag) {
+      context.commit('SET_CONVERSION_FLAG', flag);
     }
   },
   modules: {

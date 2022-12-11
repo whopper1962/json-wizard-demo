@@ -3,7 +3,7 @@
     "createJSONFromXlsx": "Create JSON from XLSX or CSV",
     "createXlsxFromJSON": "Create XLSX or CSV from JSON",
     "csvFileNameForm": "Input the csv file name.",
-    "jsonAreaPlaceholder": "JSON output will be displayed here."
+    "jsonAreaPlaceholder": "JSON output will be displayed here!"
   },
   "lang": {
     "ja": "Japanese",
