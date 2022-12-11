@@ -527,6 +527,7 @@ export default {
   width: 100%;
   background-color: white;
   margin-bottom: 10px;
+  table-layout: fixed;
 }
 .xlsx-conversion-data-table th {
   background-color: rgb(116, 190, 104);

@@ -10,7 +10,10 @@
           v-if="!isDuplicateKeyError && !isInvalidKeyError"
         >
           <div class="json-data-area">
-            <button @click="copyJsonToClipbord()">
+            <button
+              class="copy-to-clipboard-button"
+              @click="copyJsonToClipbord()"
+            >
               {{ $t('json.copyToClipboard') }}
               <font-awesome-icon icon="fa-regular fa-clipboard" class="icon"/>
             </button>
@@ -175,5 +178,13 @@ export default {
   margin: auto;
   width: 80%;
   height: 3.2rem;
+}
+.copy-to-clipboard-button {
+  /* background-color: rgb(182, 71, 71); */
+  padding: 4px;
+  border-radius: 5px;
+  width: 200px;
+  line-height: 120%;
+  background-color: rgb(198, 198, 198);
 }
 </style>

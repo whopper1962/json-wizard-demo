@@ -3,7 +3,7 @@
     class="my-editor height-400"
     v-model="inputedCode"
     :highlight="highlighter"
-    :readonly="false"
+    :readonly="true"
     line-numbers
   >
   </PrismEditor>
