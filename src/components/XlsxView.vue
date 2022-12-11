@@ -280,7 +280,7 @@ export default {
   created () {},
   methods: {
     async fileInputed (event) {
-      this.isValidFileFormat = true;
+      this.isFileInputed = false;
       const fileContents = event.target.files ? event.target.files[0] : null;
       if (!fileContents) return;
       this.sourceFileName = fileContents.name;
@@ -365,6 +365,8 @@ export default {
       await this.setSheetNames(fileContents);
       await this.readSheets(fileContents, this.sheetNames);
       this.selectedSheet = this.sheetNames[0];
+      this.isValidFileFormat = true;
+      this.isFileInputed = true;
       this.changeSheet();
     },
     readCsv (fileContents) {
@@ -433,6 +435,8 @@ export default {
       this.excludedRows = [];
       this.valueIndex = null;
       this.keyOrders = [];
+      this.jsonObj = {};
+      this.downloadFileType = 'csv';
       this.sourceFileName = '';
       this.$store.dispatch('setJson', {});
       this.$store.dispatch('setConversionFlag', false);
@@ -646,6 +650,9 @@ export default {
   font-size: 13px;
   margin-top: 10px;
 }
+.sheet-select {
+  width: 160px;
+}
 .delete-row-button-area {
   width: 1px;
 }
@@ -726,6 +733,7 @@ export default {
   border-radius: 5px;
   width: 170px;
   line-height: 120%;
+  background-color: rgb(198, 198, 198);
 }
 .disabled {
   background-color: rgb(153, 153, 153);
