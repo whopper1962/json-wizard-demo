@@ -36,6 +36,7 @@
       </template>
       <template v-else>
         <div class="json-default-area">
+          <img class="spellbook" src="spellbook1.png"/><br>
           {{ $t('message.jsonAreaPlaceholder') }}
         </div>
       </template>
@@ -177,7 +178,7 @@ export default {
   left: 0;
   margin: auto;
   width: 80%;
-  height: 3.2rem;
+  height: 13rem;
 }
 .copy-to-clipboard-button {
   /* background-color: rgb(182, 71, 71); */
@@ -186,5 +187,9 @@ export default {
   width: 200px;
   line-height: 120%;
   background-color: rgb(198, 198, 198);
+}
+.spellbook {
+  height: 130px;
+  margin-right: 17px;
 }
 </style>
