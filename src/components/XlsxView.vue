@@ -504,7 +504,7 @@ export default {
 <style scoped>
 .xlsx-title {
   font-family: 'Trattatello';
-  color: white;
+  color: rgb(34, 0, 112);
   width: 100%;
 }
 .xlsx-conversion-data-table {
@@ -524,7 +524,7 @@ export default {
   border: solid black;
   background-color: rgb(118, 117, 117);
   width: 100%;
-  height: 83vh;
+  height: 84vh;
 }
 .file-input-form {
   height: 90%;
@@ -553,7 +553,7 @@ export default {
   box-sizing: border-box;
   overflow: hidden;
   height: 92%;
-  padding: 0px 10px 0px 10px;
+  padding: 0px 10px 10px 10px;
 }
 .xlsx-contents-inner {
   /* font-size: 12px; */

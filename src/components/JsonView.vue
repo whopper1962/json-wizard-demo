@@ -15,21 +15,22 @@
         <CodeEditor
           v-model="inputedJson"
         />
-        <!-- <div class="json-display-area">
-          <pre>{{ json }}</pre>
-        </div> -->
+        <div
+          v-if="isDuplicateKeyError || isInvalidKeyError"
+          class="file-input-form"
+        >
+          <div v-if="isDuplicateKeyError" class="file-format-error">
+            ❗️{{ $t('error.duplication') }}
+          </div>
+          <div v-if="isInvalidKeyError" class="file-format-error">
+            ❗️{{ $t('error.nullKey') }}
+          </div>
+        </div>
       </template>
-      <div
-        v-if="isDuplicateKeyError || isInvalidKeyError"
-        class="file-input-form"
-      >
-        <div v-if="isDuplicateKeyError" class="file-format-error">
-          ❗️{{ $t('error.duplication') }}
+      <template v-else>
+        <div class="json-default-area">
         </div>
-        <div v-if="isInvalidKeyError" class="file-format-error">
-          ❗️{{ $t('error.nullKey') }}
-        </div>
-      </div>
+      </template>
     </div>
   </div>
 </div>
@@ -100,7 +101,7 @@ export default {
 <style scoped>
 .json-title {
   font-family: 'Trattatello';
-  color: white;
+  color: rgb(34, 0, 112);
   width: 100%;
 }
 .json-view {
@@ -159,5 +160,15 @@ export default {
 }
 .icon {
   margin-left: 5px;
+}
+.json-default-area {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 80%;
+  height: 3.2rem;
 }
 </style>

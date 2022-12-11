@@ -49,7 +49,7 @@ export default {
 
 <style>
 .height-400 {
-  height: 95%;
+  height: 96%;
   margin-top: 10px;
 }
 .my-editor {
