@@ -1,13 +1,7 @@
 module.exports = function (json) {
   try {
     readElementsRecursively(json);
-    let csvContent = "data:text/csv;charset=utf-8,";
-    jsonObj.forEach(function(rowArray) {
-      let row = rowArray.join(",");
-      csvContent += row + "\r\n";
-    });
-    const encodedUri = encodeURI(csvContent);
-    return encodedUri;
+    return jsonObj;
   } catch (error) {
     throw new Error(error);
   }

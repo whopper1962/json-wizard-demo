@@ -167,7 +167,7 @@
         </div>
         <input
           type="file"
-          accept=".xls,.xlsx,.csv"
+          accept=".xls,.xlsx"
           @change="fileInputed"
         >
         <div class="convert-button">
@@ -241,6 +241,7 @@
 import xlsxToJson from '@/lib/json-wizard/xlsx-to-json';
 import jsonToXlsx from '@/lib/json-wizard/json-to-xlsx';
 import readXlsxFile from 'read-excel-file';
+import writeXlsxFile from 'write-excel-file';
 import * as XLSX from 'xlsx';
 
 export default {
@@ -261,6 +262,7 @@ export default {
       keyOrderArr: [],
       invalidRows: [],
       isInvalidJson: true,
+      jsonObj: {},
       encodedUri: '',
       csvFileName: '',
       sourceFileName: '',
@@ -290,7 +292,7 @@ export default {
       if (!fileContents) return;
       try {
         const json = await this.readJson(fileContents);
-        this.encodedUri = jsonToXlsx(json);
+        this.jsonObj = jsonToXlsx(json);
         this.isInvalidJson = false;
       } catch (error) {
         console.error(error);
@@ -300,17 +302,44 @@ export default {
         this.isInvalidJson = true;
       }
     },
+    async createXlsx () {
+      let xlsxColumns = [];
+      for (const row of this.jsonObj) {
+        let column = [];
+        for (const elem of row) {
+          column.push({
+            value: elem
+          });
+        }
+        xlsxColumns.push(column);
+      }
+      writeXlsxFile(xlsxColumns, {
+        fileName: this.csvFileName.length > 0
+          ? `${this.csvFileName}.xlsx`
+          : 'json-wizard.xlsx'
+      });
+    },
     downloadCsv () {
       try {
-        const link = document.createElement('a');
-        link.setAttribute('href', this.encodedUri);
-        link.setAttribute('download',
-          this.csvFileName.length > 0
-          ? `${this.csvFileName}.csv`
-          : 'json-wizard.csv'
-        );
-        document.body.appendChild(link);
-        link.click();
+        if (this.downloadFileType === 'xlsx') {
+          this.createXlsx();
+        } else {
+          let csvContent = "data:text/csv;charset=utf-8,";
+          this.jsonObj.forEach(function(rowArray) {
+            let row = rowArray.join(",");
+            csvContent += row + "\r\n";
+          });
+          this.encodedUri = encodeURI(csvContent);
+          const link = document.createElement('a');
+          link.setAttribute('href', this.encodedUri);
+          link.setAttribute('download',
+            this.csvFileName.length > 0
+            ? `${this.csvFileName}.csv`
+            : 'json-wizard.csv'
+          );
+          document.body.appendChild(link);
+          link.click();
+        }
       } catch (error) {
         console.error(error);
       }
@@ -466,9 +495,7 @@ export default {
             this.$store.dispatch('setInvalidKeyErrorStatus', true);
           }
         }
-        // this.isValidFileFormat = false;
       }
-      console.error('CONVERTED!!!');
     }
   }
 }
@@ -491,6 +518,7 @@ export default {
   background-color: rgb(116, 190, 104);
 }
 .xlsx-view {
+  box-sizing: border-box;
   border-radius: 10px;
   position: relative;
   border: solid black;
@@ -522,14 +550,17 @@ export default {
   margin-top: 4%;
 }
 .xlsx-contents-outer {
-  height: 90%;
-  padding: 0px 10px 10px 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+  height: 92%;
+  padding: 0px 10px 0px 10px;
 }
 .xlsx-contents-inner {
   /* font-size: 12px; */
   /* border: solid black; */
   /* background-color: rgb(118, 117, 117); */
-  height: 99%;
+  /* height: 99%; */
+  box-sizing: border-box;
 }
 .xlsx-table {
   font-family: 'Menlo', sans-serif;
@@ -547,7 +578,8 @@ export default {
   font-size: 12px;
   position: relative;
   overflow-y: auto;
-  height: 50vh;
+  height: 700px;
+  box-sizing: border-box;
 }
 .sticky-table table {
   border: 1px solid #DDD;
