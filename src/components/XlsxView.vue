@@ -197,6 +197,13 @@
           @change="jsonInputed"
         >
         <div class="convert-button">
+          <input
+            class="csv-file-name-form"
+            type="text"
+            :disabled="isInvalidJson"
+            :placeholder="$t('message.csvFileNameForm')"
+            v-model="csvFileName"
+          />
           <button
             @click="downloadCsv()"
             :disabled="isInvalidJson"
@@ -234,7 +241,8 @@ export default {
       keyOrderArr: [],
       invalidRows: [],
       isInvalidJson: true,
-      encodedUri: ''
+      encodedUri: '',
+      csvFileName: ''
     };
   },
   props: {},
@@ -252,6 +260,9 @@ export default {
       }
     },
     async jsonInputed (event) {
+      this.isInvalidJson = true;
+      this.csvFileName = '';
+      this.encodedUri = '';
       const fileContents = event.target.files ? event.target.files[0] : null;
       if (!fileContents) return;
       try {
@@ -261,11 +272,22 @@ export default {
       } catch (error) {
         console.error(error);
         this.isInvalidJson = true;
+        this.csvFileName = '';
+        this.encodedUri = '';
+        this.isInvalidJson = true;
       }
     },
     downloadCsv () {
       try {
-        window.open(this.encodedUri);
+        const link = document.createElement('a');
+        link.setAttribute('href', this.encodedUri);
+        link.setAttribute('download',
+          this.csvFileName.length > 0
+          ? `${this.csvFileName}.csv`
+          : 'json-wizard.csv'
+        );
+        document.body.appendChild(link);
+        link.click();
       } catch (error) {
         console.error(error);
       }
@@ -589,5 +611,8 @@ export default {
 }
 .tips {
   margin-bottom: 15px;
+}
+.csv-file-name-form {
+  width: 200px;
 }
 </style>

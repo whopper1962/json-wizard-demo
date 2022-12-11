@@ -1,7 +1,8 @@
 {
   "message": {
     "createJSONFromXlsx": "XLSXまたはCSVからJSONを作成",
-    "createXlsxFromJSON": "JSONからXLSXまたはCSVを作成"
+    "createXlsxFromJSON": "JSONからXLSXまたはCSVを作成",
+    "csvFileNameForm": "CSVファイル名を入力してください. "
   },
   "lang": {
     "ja": "日本語",

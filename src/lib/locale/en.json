@@ -1,7 +1,8 @@
 {
   "message": {
     "createJSONFromXlsx": "Create JSON from XLSX or CSV",
-    "createXlsxFromJSON": "Create XLSX or CSV from JSON"
+    "createXlsxFromJSON": "Create XLSX or CSV from JSON",
+    "csvFileNameForm": "Input the csv file name."
   },
   "lang": {
     "ja": "Japanese",
