@@ -211,7 +211,8 @@
 </template>
 
 <script>
-import xlsxJsonConverter from '@/lib/json-wizard/xlsx-to-json';
+import xlsxToJson from '@/lib/json-wizard/xlsx-to-json';
+import jsonToXlsx from '@/lib/json-wizard/json-to-xlsx';
 import readXlsxFile from 'read-excel-file';
 import * as XLSX from 'xlsx';
 
@@ -251,7 +252,22 @@ export default {
     async jsonInputed (event) {
       const fileContents = event.target.files ? event.target.files[0] : null;
       if (!fileContents) return;
-      console.error(fileContents);
+      try {
+        const json = await this.readJson(fileContents);
+        jsonToXlsx(json);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async readJson (fileContents) {
+      return new Promise((resolve) => {
+        const fileReader = new FileReader();
+        fileReader.readAsText(fileContents);
+        fileReader.onload = (e) => {
+          const json = JSON.parse(e.target.result);
+          resolve(json);
+        };
+      });
     },
     async readXlsx (fileContents) {
       await this.setSheetNames(fileContents);
@@ -367,7 +383,7 @@ export default {
       this.$store.dispatch('setInvalidKeyErrorStatus', false);
       this.invalidRows = [];
       try {
-        const generatedJson = xlsxJsonConverter({
+        const generatedJson = xlsxToJson({
           parentKeys: this.keyOrders,
           valueIndex: this.valueIndex,
           contents: this.selectedSheetContents,
