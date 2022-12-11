@@ -223,13 +223,14 @@
           </label>
         </div>
         <div class="convert-button">
+          {{ $t('message.csvFileNameForm') }}: 
           <input
             class="csv-file-name-form"
             type="text"
             :disabled="isInvalidJson"
-            :placeholder="$t('message.csvFileNameForm')"
+            placeholder="json-wizard"
             v-model="csvFileName"
-          />
+          /><br>
           <button
             class="csv-download-button"
             @click="downloadCsv()"
@@ -697,7 +698,7 @@ export default {
   left: 0;
   margin: auto;
   width: 80%;
-  height: 10.2rem;
+  height: 12.2rem;
 }
 .xlsx-to-json-inner {
   position: absolute;
@@ -720,6 +721,7 @@ export default {
 .csv-file-name-form {
   width: 200px;
   height: 20px;
+  margin-bottom: 20px;
 }
 .exec-conversion-button {
   background-color: rgb(98, 185, 85);
