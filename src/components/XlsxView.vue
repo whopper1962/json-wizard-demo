@@ -524,7 +524,7 @@ export default {
   border: solid black;
   background-color: rgb(118, 117, 117);
   width: 100%;
-  height: 84vh;
+  height: 84.3vh;
 }
 .file-input-form {
   height: 90%;

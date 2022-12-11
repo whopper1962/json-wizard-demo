@@ -29,6 +29,7 @@
       </template>
       <template v-else>
         <div class="json-default-area">
+          {{ $t('message.jsonAreaPlaceholder') }}
         </div>
       </template>
     </div>
@@ -109,7 +110,7 @@ export default {
   border: solid black;
   background-color: rgb(118, 117, 117);
   width: 100%;
-  height: 83vh;
+  height: 84vh;
 }
 .file-input-form {
   position: absolute;
