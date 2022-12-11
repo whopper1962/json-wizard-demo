@@ -59,7 +59,7 @@ export default {
   color: #ccc;
   font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
   font-size: 14px;
-  line-height: 1.5;
+  /* line-height: 1.5; */
   padding: 5px;
 }
 .prism-editor__textarea:focus {
