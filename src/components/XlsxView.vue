@@ -174,7 +174,7 @@
         </div>
         <input
           type="file"
-          accept=".xls,.xlsx"
+          accept=".xls,.xlsx,.csv"
           @change="fileInputed"
         >
         <div class="convert-button">
@@ -282,12 +282,13 @@ export default {
   methods: {
     async fileInputed (event) {
       this.isFileInputed = false;
+      this.sheetNames = [];
       const fileContents = event.target.files ? event.target.files[0] : null;
       if (!fileContents) return;
       this.sourceFileName = fileContents.name;
       const inputedFileExtension = this.sourceFileName.split('.').pop();
       if (inputedFileExtension === 'csv') {
-        this.readCsv(fileContents);
+        this.readCsv(event.target.files[0]);
       } else {
         this.readXlsx(fileContents);
       }
@@ -370,8 +371,54 @@ export default {
       this.isFileInputed = true;
       this.changeSheet();
     },
-    readCsv (fileContents) {
-      console.error(fileContents);
+    async readCsv (fileContents) {
+      await this.parseCsv(fileContents);
+    },
+    getCsvMaxLength (csvRows) {
+      let lengths = []
+      csvRows.forEach((row) => {
+        lengths.push(row.length);
+      });
+      const maxLength = Math.max(...lengths);
+      return maxLength;
+    },
+    parseCsv (fileContents) {
+      return new Promise((resolve) => {
+        const fileReader = new FileReader();
+        fileReader.readAsText(fileContents);
+        fileReader.onload = (event) => {
+          const text = event.target.result;
+          const rows = text.split("\r\n");
+          if (!rows.slice(-1)[0]) {
+            rows.pop();
+          }
+          let parsedCsv = rows.map((currentValue) => {
+            let row = currentValue.split(",");
+            return row;
+          }, []);
+          const maxLength = this.getCsvMaxLength(parsedCsv);
+          parsedCsv = this.formatCsvArray(parsedCsv, maxLength);
+          this.sheetNames.push(fileContents.name);
+          this.selectedSheet = this.sheetNames[0];
+          this.xlsxContents = Object.assign({}, this.xlsxContents, {
+            [fileContents.name]: parsedCsv
+          });
+          this.isValidFileFormat = true;
+          this.isFileInputed = true;
+          this.changeSheet();
+          resolve(parsedCsv);
+        };
+      });
+    },
+    formatCsvArray (rows, maxLength) {
+      let clonedRows = rows.slice();
+      for (const row of clonedRows) {
+        const diff = maxLength - row.length;
+        for (let i = 0; i < diff; i++) {
+          row.push(null);
+        }
+      }
+      return clonedRows;
     },
     setSheetNames (fileContents) {
       return new Promise((resolve) => {
@@ -530,6 +577,8 @@ export default {
   margin-bottom: 10px;
   table-layout: fixed;
 }
+.xlsx-conversion-data-table td {
+}
 .xlsx-conversion-data-table th {
   background-color: rgb(116, 190, 104);
 }
@@ -599,7 +648,7 @@ export default {
   border-collapse:separate;
 }
 .sticky-table table {
-  height: 100%;
+  /* height: 100%; */
   border: 1px solid #DDD;
   vertical-align: middle;
   text-align: center;
@@ -614,7 +663,7 @@ export default {
   text-align: center;
 }
 .sticky-table td {
-  height: 100%;
+  height: 1px;
 }
 .garbage-button {
   text-align: center;
@@ -627,6 +676,7 @@ export default {
   background-color: rgb(255, 188, 79);
 }
 .xlsx-conversion-data-area {
+  height: 100%;
   margin-bottom: 5px;
   text-align: left;
   /* font-size: 5px; */
@@ -680,6 +730,7 @@ export default {
   left: 0;
   margin: auto;
   width: 80%;
+  height: 100%;
   height: 3.2rem;
 }
 .json-to-xlsx {
