@@ -241,6 +241,18 @@
         </div>
       </div>
     </div>
+    <div class="xlsx-to-json">
+      <div class="xlsx-to-json-inner">
+        <div class="tips">
+          {{ $t('message.inputJSON') }}
+        </div>
+        <button
+          @click="openJsonEditor()"
+        >
+          {{ $t('message.openEditor') }}
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 </template>
@@ -381,6 +393,9 @@ export default {
       });
       const maxLength = Math.max(...lengths);
       return maxLength;
+    },
+    openJsonEditor () {
+      console.error('Open Editor!');
     },
     parseCsv (fileContents) {
       return new Promise((resolve) => {
@@ -577,8 +592,6 @@ export default {
   margin-bottom: 10px;
   table-layout: fixed;
 }
-.xlsx-conversion-data-table td {
-}
 .xlsx-conversion-data-table th {
   background-color: rgb(116, 190, 104);
 }
@@ -717,7 +730,14 @@ export default {
 .xlsx-to-json {
   border: solid black;
   position: relative;
-  height: 50%;
+  height: 33%;
+  border-radius: 8px;
+  margin: 10px;
+}
+.json-to-xlsx-to-json {
+  border: solid black;
+  position: relative;
+  height: 33%;
   border-radius: 8px;
   margin: 10px;
 }
@@ -734,7 +754,7 @@ export default {
   height: 3.2rem;
 }
 .json-to-xlsx {
-  height: 50%;
+  height: 33%;
   border: solid black;
   position: relative;
   border-radius: 8px;
@@ -749,7 +769,7 @@ export default {
   left: 0;
   margin: auto;
   width: 80%;
-  height: 12.2rem;
+  height: 11.2rem;
 }
 .xlsx-to-json-inner {
   position: absolute;
@@ -759,7 +779,8 @@ export default {
   left: 0;
   margin: auto;
   width: 80%;
-  height: 3.2rem;
+  /* height: 3.2rem; */
+  height: 6.2rem;
 }
 .csv-download-button {
   width: 120px;
