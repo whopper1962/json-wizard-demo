@@ -263,8 +263,12 @@ import jsonToXlsx from '@/lib/json-wizard/json-to-xlsx';
 import readXlsxFile from 'read-excel-file';
 import writeXlsxFile from 'write-excel-file';
 import * as XLSX from 'xlsx';
+// import CodeEditor from '@/components/CodeEditor';
 
 export default {
+  components: {
+    // CodeEditor
+  },
   data () {
     return {
       converted: false,
@@ -286,7 +290,9 @@ export default {
       encodedUri: '',
       csvFileName: '',
       sourceFileName: '',
-      downloadFileType: 'csv'
+      downloadFileType: 'csv',
+      inputedJson: '',
+      isInputJsonMode: false
     };
   },
   props: {},

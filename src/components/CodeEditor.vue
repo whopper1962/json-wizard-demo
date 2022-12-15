@@ -3,10 +3,15 @@
     class="my-editor height-400"
     v-model="inputedCode"
     :highlight="highlighter"
-    :readonly="true"
+    :readonly="false"
     line-numbers
-  >
-  </PrismEditor>
+  />
+  <!-- <CodeEditor
+    :language_selector="true"
+    height="96%"
+    class="my-editor height-400"
+    v-model="inputedCode"
+  /> -->
 </template>
 
 <script>
@@ -16,10 +21,12 @@ import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism-tomorrow.css';
+// import CodeEditor from 'simple-code-editor';
 
 export default {
   components: {
-    PrismEditor
+    PrismEditor,
+    // CodeEditor
   },
   data () {
     return {
