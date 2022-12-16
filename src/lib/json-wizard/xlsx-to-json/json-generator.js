@@ -50,6 +50,7 @@ module.exports = class JsonGenerator {
 
   checkDuplicates() {
     let duplicates = [];
+    console.error(this.orderedKeys);
     const frequency = this.orderedKeys.reduce((
       seen,
       currentItem

@@ -5,7 +5,7 @@
   </h3>
   <div class="json-contents-outer">
     <div class="json-contents-inner">
-      <template v-if="!converted">
+      <template v-if="converted">
         <template
           v-if="!isDuplicateKeyError && !isInvalidKeyError"
         >

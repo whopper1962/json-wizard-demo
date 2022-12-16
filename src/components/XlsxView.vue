@@ -201,7 +201,7 @@
         <input
           type="file"
           accept=".json"
-          @change="jsonInputed"
+          @input="jsonInputed"
         >
         <div class="convert-button">
           {{ $t('xlsx.downloadFileType') }}:
@@ -494,19 +494,7 @@ export default {
       }
     },
     initXlsxForm () {
-      this.converted = false;
-      this.isValidFileFormat = true;
-      this.isFileInputed = false;
-      this.keyOrders = [];
-      this.selectedSheetMaxLen = null;
-      this.keyOrderArr = [];
-      this.invalidRows = [];
-      this.excludedRows = [];
-      this.valueIndex = null;
-      this.keyOrders = [];
-      this.jsonObj = {};
-      this.downloadFileType = 'csv';
-      this.sourceFileName = '';
+      Object.assign(this.$data, this.$options.data());
       this.$store.dispatch('setJson', {});
       this.$store.dispatch('setConversionFlag', false);
       this.$store.dispatch('setDuplicationErrorStatus', false);

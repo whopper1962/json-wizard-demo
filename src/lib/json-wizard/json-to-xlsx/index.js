@@ -1,4 +1,13 @@
+let jsonObj = [];
+let keyPathLengths = [];
+let maxDepath = 0;
+let keyLength = 0;
+
 module.exports = function (json) {
+  jsonObj = [];
+  keyPathLengths = [];
+  maxDepath = 0;
+  keyLength = 0;
   try {
     getJsonDepth(json);
     maxDepath = Math.max(...keyPathLengths);
@@ -9,11 +18,6 @@ module.exports = function (json) {
     throw new Error(error);
   }
 };
-
-let jsonObj = [];
-let keyPathLengths = [];
-let maxDepath = 0;
-let keyLength = 0;
 
 function getJsonDepth (json = [], ) {
   for (const element in json) {
