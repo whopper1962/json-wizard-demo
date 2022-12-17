@@ -1,6 +1,5 @@
 let jsonObj = [];
 let keyPathLengths = [];
-let maxDepath = 0;
 let keyLength = 0;
 
 module.exports = function (json) {
@@ -10,7 +9,6 @@ module.exports = function (json) {
   keyLength = 0;
   try {
     getJsonDepth(json);
-    maxDepath = Math.max(...keyPathLengths);
     readElementsRecursively(json);
     return jsonObj;
   } catch (error) {
@@ -23,7 +21,6 @@ function getJsonDepth (json = [], ) {
     if (typeof json[element] === 'object') {
       keyLength++;
       keyPathLengths.push(keyLength);
-      getJsonDepth(json[element]);
     } else {
       if (element === Object.keys(json)[Object.keys(json).length - 1]) {
         keyLength--;
