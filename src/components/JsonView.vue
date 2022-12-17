@@ -17,9 +17,14 @@
               {{ $t('json.copyToClipboard') }}
               <font-awesome-icon icon="fa-regular fa-clipboard" class="icon"/>
             </button>
+            <label class="edit-mode">
+              <input type="checkbox" v-model="editMode">
+              {{ $t('message.editMode') }}
+            </label>
           </div>
           <CodeEditor
             v-model="inputedJson"
+            :editMode="editMode"
           />
         </template>
         <div
@@ -54,7 +59,8 @@ export default {
   },
   data () {
     return {
-      inputedJson: ''
+      inputedJson: '',
+      editMode: false
     };
   },
   props: {},
@@ -191,5 +197,9 @@ export default {
 .spellbook {
   height: 130px;
   margin-right: 17px;
+}
+.edit-mode {
+  margin-left: 15px;
+  cursor: pointer;
 }
 </style>

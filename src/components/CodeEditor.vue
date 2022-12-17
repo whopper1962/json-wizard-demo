@@ -3,7 +3,7 @@
     class="my-editor height-400"
     v-model="inputedCode"
     :highlight="highlighter"
-    :readonly="false"
+    :readonly="!editMode"
     line-numbers
   />
   <!-- <CodeEditor
@@ -34,7 +34,8 @@ export default {
     };
   },
   props: {
-    value: [String, Number]
+    value: [String, Number],
+    editMode: [Boolean]
   },
   computed: {
     inputedCode: {
