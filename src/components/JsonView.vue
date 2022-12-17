@@ -118,7 +118,7 @@ export default {
   border: solid black;
   background-color: rgb(118, 117, 117);
   width: 100%;
-  height: 84vh;
+  height: 81vh;
 }
 .file-input-form {
   position: absolute;
