@@ -5,7 +5,6 @@ let keyLength = 0;
 module.exports = function (json) {
   jsonObj = [];
   keyPathLengths = [];
-  maxDepath = 0;
   keyLength = 0;
   try {
     getJsonDepth(json);
