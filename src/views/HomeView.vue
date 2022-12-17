@@ -5,7 +5,7 @@
         </div> -->
         <div class="nav-bar">
           <div class="left created-by-whopper">
-            Crated by 
+            Created by 
             <a
               href="https://github.com/whopper1962"
               target="_blank"
