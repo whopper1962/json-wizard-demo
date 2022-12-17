@@ -611,7 +611,7 @@ export default {
   border: solid black;
   background-color: rgb(118, 117, 117);
   width: 100%;
-  height: 84.5vh;
+  height: 81.5vh;
 }
 .file-input-form {
   height: 90%;
@@ -825,7 +825,7 @@ export default {
 .set-data-type-as-array-area {
   /* display: inline-block; */
   margin-bottom: 10px;
-  line-height: 200%;
+  line-height: 170%;
 }
 .set-data-type-as-array-area label {
   cursor: pointer;

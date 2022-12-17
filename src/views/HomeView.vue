@@ -4,6 +4,16 @@
         <!-- <div class="left">
         </div> -->
         <div class="nav-bar">
+          <div class="left created-by-whopper">
+            Crated by 
+            <a
+              href="https://github.com/whopper1962"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              @whopper1962
+            </a>
+          </div>
           <div class="flex">
             <img class="icon" src="wizard.png"/>
             <div>
@@ -121,6 +131,16 @@ export default {
 .lang-select-box-area {
   margin-right: 2%;
   margin-top: 1%;
+}
+.created-by-whopper {
+  font-family: cursive;
+  font-weight: bold;
+  color: black;
+  margin-left: 2%;
+  margin-top: 1%;
+}
+.created-by-whopper a{
+  text-decoration:none; 
 }
 .lang-select-box-area select {
   width: 100px;
