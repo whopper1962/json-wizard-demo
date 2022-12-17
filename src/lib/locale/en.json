@@ -5,7 +5,9 @@
     "inputJSON": "Input JSON manually",
     "openEditor": "Open Editor",
     "csvFileNameForm": "File name",
-    "jsonAreaPlaceholder": "JSON output will be displayed here!"
+    "jsonAreaPlaceholder": "JSON output will be displayed here!",
+    "setRootDataTypeAsArray": "Set data type as Array",
+    "numberOfElements": "Number of elements"
   },
   "lang": {
     "ja": "Japanese",

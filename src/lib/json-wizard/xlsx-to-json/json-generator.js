@@ -1,5 +1,6 @@
 module.exports = class JsonGenerator {
-  constructor({ parentKeys, valueIndex, contents, excludes }) {
+  constructor({ parentKeys, valueIndex, contents,
+    excludes, isArray, numberOfElements }) {
     this.parents = parentKeys;
     this.valueIndex = valueIndex;
     this.contents = contents;
@@ -9,6 +10,8 @@ module.exports = class JsonGenerator {
     this.nullKeys = [];
     this.duplicates = []
     this.json = {};
+    this.isArray = isArray;
+    this.numberOfElements = numberOfElements;
     for (const row of this.contents) {
       const valueArr = [];
       for (const keyIndex of this.parents) {
@@ -48,9 +51,18 @@ module.exports = class JsonGenerator {
     }
   }
 
+  convertToArray () {
+    const arr = [];
+    const clonedJson = {...this.json};
+    for (let i = 0; i < this.numberOfElements; i++) {
+      arr.push(clonedJson);
+    }
+    this.json = {};
+    this.json = arr;
+  }
+
   checkDuplicates() {
     let duplicates = [];
-    console.error(this.orderedKeys);
     const frequency = this.orderedKeys.reduce((
       seen,
       currentItem

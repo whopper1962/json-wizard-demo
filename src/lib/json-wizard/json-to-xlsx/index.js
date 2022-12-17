@@ -11,7 +11,6 @@ module.exports = function (json) {
   try {
     getJsonDepth(json);
     maxDepath = Math.max(...keyPathLengths);
-    console.error(maxDepath);
     readElementsRecursively(json);
     return jsonObj;
   } catch (error) {

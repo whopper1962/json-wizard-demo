@@ -5,7 +5,9 @@
     "inputJSON": "JSONを手動入力",
     "openEditor": "エディターを開く",
     "csvFileNameForm": "ファイル名",
-    "jsonAreaPlaceholder": "変換されたJSONが表示されます"
+    "jsonAreaPlaceholder": "変換されたJSONが表示されます",
+    "setRootDataTypeAsArray": "データを配列にする",
+    "numberOfElements": "要素数"
   },
   "lang": {
     "ja": "日本語",

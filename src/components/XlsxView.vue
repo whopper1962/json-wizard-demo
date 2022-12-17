@@ -10,6 +10,12 @@
   >
     <div class="xlsx-contents-inner">
       <div class="xlsx-conversion-data-area">
+        <button
+          class="select-other-files-button"
+          @click="initXlsxForm()"
+        >
+          {{ $t('xlsx.selectOtherFile') }}
+        </button><br/>
         <table
           class="xlsx-conversion-data-table"
           border="5"
@@ -38,6 +44,17 @@
             <td v-else class="placeholder-style">{{ $t('xlsx.selectColumn') }}</td>
           </tr>
         </table>
+        <div class="set-data-type-as-array-area sheet-select-area">
+          <label>
+            <input type="checkbox" v-model="isArrayRoot"/>
+            {{ $t('message.setRootDataTypeAsArray') }}
+          </label>
+          <template v-if="isArrayRoot">
+            <font-awesome-icon icon="fa-solid fa-hand-point-right"/>
+            {{ $t('message.numberOfElements') }}:
+            <input type="number" v-model="numberOfElements"/>
+          </template>
+        </div>
         <button
           class="exec-conversion-button"
           :class="{
@@ -49,12 +66,6 @@
           {{ $t('xlsx.execCovertion') }}
           <font-awesome-icon icon="fa-solid fa-wand-sparkles" class="icon"/>
         </button>
-        <button
-          class="select-other-files-button"
-          @click="initXlsxForm()"
-        >
-          {{ $t('xlsx.selectOtherFile') }}
-        </button><br/>
         <div class="sheet-select-area">
           <font-awesome-icon icon="fa-solid fa-hand-point-right" />
           {{ $t('xlsx.selectedFile') }}: {{ sourceFileName }}<br>
@@ -241,7 +252,7 @@
         </div>
       </div>
     </div>
-    <div class="xlsx-to-json">
+    <!-- <div class="xlsx-to-json">
       <div class="xlsx-to-json-inner">
         <div class="tips">
           {{ $t('message.inputJSON') }}
@@ -252,7 +263,7 @@
           {{ $t('message.openEditor') }}
         </button>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 </template>
@@ -292,7 +303,9 @@ export default {
       sourceFileName: '',
       downloadFileType: 'csv',
       inputedJson: '',
-      isInputJsonMode: false
+      isInputJsonMode: false,
+      isArrayRoot: false,
+      numberOfElements: 1
     };
   },
   props: {},
@@ -543,7 +556,9 @@ export default {
           parentKeys: this.keyOrders,
           valueIndex: this.valueIndex,
           contents: this.selectedSheetContents,
-          excludes: this.excludedRows
+          excludes: this.excludedRows,
+          isArray: this.isArrayRoot,
+          numberOfElements: this.numberOfElements
         });
         this.$store.dispatch('setJson', generatedJson);
       } catch (error) {
@@ -724,14 +739,14 @@ export default {
 .xlsx-to-json {
   border: solid black;
   position: relative;
-  height: 33%;
+  height: 50%;
   border-radius: 8px;
   margin: 10px;
 }
 .json-to-xlsx-to-json {
   border: solid black;
   position: relative;
-  height: 33%;
+  height: 50%;
   border-radius: 8px;
   margin: 10px;
 }
@@ -748,7 +763,7 @@ export default {
   height: 3.2rem;
 }
 .json-to-xlsx {
-  height: 33%;
+  height: 50%;
   border: solid black;
   position: relative;
   border-radius: 8px;
@@ -806,5 +821,13 @@ export default {
 }
 .disabled {
   background-color: rgb(153, 153, 153);
+}
+.set-data-type-as-array-area {
+  /* display: inline-block; */
+  margin-bottom: 10px;
+  line-height: 200%;
+}
+.set-data-type-as-array-area label {
+  cursor: pointer;
 }
 </style>

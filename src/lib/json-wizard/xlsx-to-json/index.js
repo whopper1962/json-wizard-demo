@@ -4,7 +4,9 @@ module.exports = function (xlsxObj) {
   const jsonGenerator = new JsonGenerator({...xlsxObj});
   jsonGenerator.generate();
   jsonGenerator.checkDuplicates();
-  console.error(jsonGenerator);
+  if (jsonGenerator.isArray) {
+    jsonGenerator.convertToArray();
+  }
   if (jsonGenerator.nullKeys.length > 0) {
     throw {
       status: 429,
