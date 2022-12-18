@@ -588,6 +588,50 @@ export default {
 </script>
 
 <style scoped>
+@media all and (min-width: 1024px) {
+  .xlsx-view {
+    box-sizing: border-box;
+    border-radius: 10px;
+    position: relative;
+    border: solid black;
+    background-color: rgb(118, 117, 117);
+    width: 100%;
+    height: 81.5vh;
+  }
+}
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  .xlsx-view {
+    box-sizing: border-box;
+    border-radius: 10px;
+    position: relative;
+    border: solid black;
+    background-color: rgb(118, 117, 117);
+    width: 100%;
+    height: 81.5vh;
+  }
+}
+@media all and (min-width: 480px) and (max-width: 768px) {
+  .xlsx-view {
+    box-sizing: border-box;
+    border-radius: 10px;
+    position: relative;
+    border: solid black;
+    background-color: rgb(118, 117, 117);
+    width: 100%;
+    height: 100vh;
+  }
+}
+@media all and (max-width: 480px) {
+  .xlsx-view {
+    box-sizing: border-box;
+    border-radius: 10px;
+    position: relative;
+    border: solid black;
+    background-color: rgb(118, 117, 117);
+    width: 100%;
+    height: 100vh;
+  }
+}
 .xlsx-title {
   font-family: 'Trattatello';
   color: rgb(34, 0, 112);
@@ -603,15 +647,6 @@ export default {
 }
 .xlsx-conversion-data-table th {
   background-color: rgb(116, 190, 104);
-}
-.xlsx-view {
-  box-sizing: border-box;
-  border-radius: 10px;
-  position: relative;
-  border: solid black;
-  background-color: rgb(118, 117, 117);
-  width: 100%;
-  height: 81.5vh;
 }
 .file-input-form {
   height: 90%;
