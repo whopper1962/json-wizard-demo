@@ -70,6 +70,74 @@ export default {
 </script>
 <style scoped>
 
+@media all and (min-width: 1024px) {
+  .nav-bar {
+    margin-top: 0.5%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+  .right {
+    position: absolute;
+    right: 0;
+  }
+  .left {
+    position: absolute;
+    left: 0;
+  }
+}
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  .nav-bar {
+    margin-top: 0.5%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+  .right {
+    position: relative;
+    right: 0;
+  }
+  .left {
+    position: relative;
+    left: 0;
+  }
+}
+@media all and (min-width: 480px) and (max-width: 768px) {
+  .nav-bar {
+    margin-top: 0.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+  }
+  .right {
+    position: relative;
+    right: 0;
+  }
+  .left {
+    position: relative;
+    left: 0;
+  }
+}
+@media all and (max-width: 480px) {
+  .nav-bar {
+    margin-top: 0.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+  }
+  .right {
+    position: relative;
+    right: 0;
+  }
+  .left {
+    position: relative;
+    left: 0;
+  }
+}
 .converter-title {
   font-family: 'Trattatello';
 }
@@ -89,20 +157,6 @@ export default {
 .split-item-outer {
   height: 70vh;
   width: 50%;
-}
-.nav-bar {
-  margin-top: 0.5%;
-  display: flex;
-  justify-content: center;
-  position: relative;
-}
-.right {
-  position: absolute;
-  right: 0;
-}
-.left {
-  position: absolute;
-  left: 0;
 }
 .lang-select-box-area {
   margin-right: 2%;
@@ -158,8 +212,8 @@ export default {
   text-align: left;
   margin-left: 0;
 }
-.app-info-list li {
-}
+/* .app-info-list li {
+} */
 .top-15 {
   margin-top: 15px;
 }

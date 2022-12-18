@@ -179,6 +179,6 @@ export default {
   text-align: left;
   margin-left: 0;
 }
-.app-info-list li {
-}
+/* .app-info-list li {
+} */
 </style>
