@@ -1,30 +1,57 @@
 <template>
-  <div class="home">
-    <div class="xlsx-json-contents">
-      <div class="split-item split-item-outer">
-        <div class="split-item-inner">
-          <XlsxView />
+  <div class="converter-title">
+    <div class="nav-bar">
+      <div class="left">
+        <ul class="app-info-list">
+          <li class="created-by-whopper">
+            Created by
+            <a
+              href="https://github.com/whopper1962"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              @whopper1962 </a
+            ><br />
+          </li>
+          <li class="user-manual-link top-15">
+            <font-awesome-icon icon="fa-solid fa-hand-point-right" />
+            <router-link
+              class="no-link"
+              :to="{
+                name: 'HOME',
+              }"
+              >{{ $t("menu.converter") }}
+            </router-link>
+          </li>
+          <li class="user-manual-link">
+            <font-awesome-icon icon="fa-solid fa-hand-point-right" />
+            <router-link
+              class="no-link"
+              :to="{
+                name: 'USER_MANUAL',
+              }"
+              >{{ $t("menu.userManual") }}
+            </router-link>
+          </li>
+        </ul>
+      </div>
+      <div class="flex">
+        <img class="icon" src="wizard.png" />
+        <div>
+          <h3 class="title">JSON Wizard</h3>
         </div>
       </div>
-      <div class="split-item split-item-outer">
-        <div class="split-item-inner">
-          <JsonView />
-        </div>
+      <div class="right lang-select-box-area">
+        <select v-model="selectedLang" @change="changeLang()">
+          <option value="en">{{ $t("lang.en") }}</option>
+          <option value="ja">{{ $t("lang.ja") }}</option>
+        </select>
       </div>
     </div>
   </div>
 </template>
-
 <script>
-import xlsxJsonConverter from "@/lib/json-wizard/xlsx-to-json";
-import JsonView from '@/components/JsonView';
-import XlsxView from '@/components/XlsxView';
-
 export default {
-  components: {
-    JsonView,
-    XlsxView
-  },
   data () {
     return {
       selectedLang: 'ja'
@@ -34,18 +61,15 @@ export default {
     this.selectedLang = localStorage.getItem('lang') || 'ja';
   },
   methods: {
-    execConvert() {
-      xlsxJsonConverter();
-    },
     changeLang () {
       localStorage.setItem('lang', this.selectedLang);
       this.$i18n.locale = localStorage.getItem('lang');
     }
   },
-};
+}
 </script>
-
 <style scoped>
+
 .converter-title {
   font-family: 'Trattatello';
 }
@@ -122,12 +146,10 @@ export default {
   color: rgb(34, 0, 112);
 }
 .user-manual-link {
-  margin-top: 20px;
-
+  margin-top: 3px;
 }
 .user-manual-link a {
   color: black;
-  text-decoration:none;
   margin-left: 2px;
 }
 .app-info-list {
@@ -137,5 +159,13 @@ export default {
   margin-left: 0;
 }
 .app-info-list li {
+}
+.top-15 {
+  margin-top: 15px;
+}
+.no-link {
+  text-decoration:none;
+  color: black;
+  margin-top: 3px;
 }
 </style>
