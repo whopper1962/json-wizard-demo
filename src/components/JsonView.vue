@@ -213,7 +213,7 @@ export default {
   left: 0;
   margin: auto;
   width: 80%;
-  height: 13rem;
+  height: 10rem;
 }
 .copy-to-clipboard-button {
   /* background-color: rgb(182, 71, 71); */
