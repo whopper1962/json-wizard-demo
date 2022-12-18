@@ -225,7 +225,6 @@ export default {
 }
 .spellbook {
   height: 100px;
-  margin-right: 17px;
 }
 .edit-mode {
   margin-left: 15px;
