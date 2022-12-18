@@ -54,17 +54,60 @@ export default {
   width: 100%;
   /* margin-top: 20px; */
 }
-.split-item {
+/* .split-item {
   display: table-cell;
   padding: 10px;
   width: 50%;
-}
-.split-item-outer {
+} */
+/* .split-item-outer {
   position: relative;
+} */
+@media all and (min-width: 1024px) {
+  .split-item {
+    display: table-cell;
+    padding: 10px;
+    width: 50%;
+  }
+  .split-item-outer {
+    height: 70vh;
+    width: 50%;
+    position: relative;
+  }
 }
-.split-item-outer {
-  height: 70vh;
-  width: 50%;
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  .split-item {
+    display: table-cell;
+    padding: 10px;
+    width: 50%;
+  }
+  .split-item-outer {
+    height: 70vh;
+    width: 50%;
+    position: relative;
+  }
+}
+
+@media all and (min-width: 480px) and (max-width: 768px) {
+  .split-item {
+    padding: 10px;
+    width: 50%;
+  }
+  .split-item-outer {
+    width: 94%;
+    position: relative;
+  }
+}
+
+@media all and (max-width: 480px) {
+  .split-item {
+    padding: 10px;
+    width: 50%;
+  }
+  .split-item-outer {
+    width: 94%;
+    position: relative;
+  }
 }
 .nav-bar {
   margin-top: 0.5%;
@@ -136,6 +179,6 @@ export default {
   text-align: left;
   margin-left: 0;
 }
-.app-info-list li {
-}
+/* .app-info-list li {
+} */
 </style>

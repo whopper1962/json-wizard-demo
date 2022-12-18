@@ -114,17 +114,46 @@ export default {
 </script>
 
 <style scoped>
+@media all and (min-width: 1024px) {
+  .json-view {
+    border-radius: 10px;
+    border: solid black;
+    background-color: rgb(118, 117, 117);
+    width: 100%;
+    height: 81vh;
+  }
+}
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  .json-view {
+    border-radius: 10px;
+    border: solid black;
+    background-color: rgb(118, 117, 117);
+    width: 100%;
+    height: 81vh;
+  }
+}
+@media all and (min-width: 480px) and (max-width: 768px) {
+  .json-view {
+    border-radius: 10px;
+    border: solid black;
+    background-color: rgb(118, 117, 117);
+    width: 100%;
+    height: 100vh;
+  }
+}
+@media all and (max-width: 480px) {
+  .json-view {
+    border-radius: 10px;
+    border: solid black;
+    background-color: rgb(118, 117, 117);
+    width: 100%;
+    height: 100vh;
+  }
+}
 .json-title {
   font-family: 'Trattatello';
   color: rgb(34, 0, 112);
   width: 100%;
-}
-.json-view {
-  border-radius: 10px;
-  border: solid black;
-  background-color: rgb(118, 117, 117);
-  width: 100%;
-  height: 81vh;
 }
 .file-input-form {
   position: absolute;
