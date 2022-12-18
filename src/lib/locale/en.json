@@ -10,6 +10,11 @@
     "numberOfElements": "Number of elements",
     "editMode": "Edit JSON"
   },
+  "menu": {
+    "userManual": "User Manual",
+    "converter": "Converter",
+    "back": "Back"
+  },
   "lang": {
     "ja": "Japanese",
     "en": "English"

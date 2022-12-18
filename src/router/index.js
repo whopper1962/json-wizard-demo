@@ -1,14 +1,20 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import HomeView from '../views/HomeView.vue';
+import HomeView from '@/views/HomeView.vue';
+import UserManualView from '@/views/UserManualView.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'HOME',
     component: HomeView
+  },
+  {
+    path: '/user-manual',
+    name: 'USER_MANUAL',
+    component: UserManualView
   },
   {
     path: '*',
