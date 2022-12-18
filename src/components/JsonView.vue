@@ -224,7 +224,7 @@ export default {
   background-color: rgb(198, 198, 198);
 }
 .spellbook {
-  height: 130px;
+  height: 100px;
   margin-right: 17px;
 }
 .edit-mode {
