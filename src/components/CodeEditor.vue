@@ -1,32 +1,36 @@
 <template>
-  <PrismEditor
+  <!-- <PrismEditor
     class="my-editor height-400"
     v-model="inputedCode"
     :highlight="highlighter"
     :readonly="!editMode"
     line-numbers
-  />
-  <!-- <CodeEditor
-    :language_selector="true"
-    height="96%"
+  /> -->
+  <CodeEditor
+    :language_selector="false"
+    :hide_header="true"
+    :wrap_code="false"
+    selector_height="70vh"
+    selector_width="98vh"
+    font_size="13px"
     class="my-editor height-400"
     v-model="inputedCode"
-  /> -->
+  />
 </template>
 
 <script>
-import { PrismEditor } from 'vue-prism-editor';
+// import { PrismEditor } from 'vue-prism-editor';
 import 'vue-prism-editor/dist/prismeditor.min.css';
 import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism-tomorrow.css';
-// import CodeEditor from 'simple-code-editor';
+import CodeEditor from 'simple-code-editor';
 
 export default {
   components: {
-    PrismEditor,
-    // CodeEditor
+    // PrismEditor,
+    CodeEditor
   },
   data () {
     return {
@@ -57,8 +61,21 @@ export default {
 
 <style>
 .height-400 {
-  height: 96%;
+  height: 70vh !important;
+  /* height: 96%; */
   margin-top: 10px;
+  width: 98vh !important;
+}
+/* .prism-editor__container {
+  max-width: 50px;
+  overflow: hidden;
+}
+.prism-editor__textarea {
+  max-width: 50px !important;
+  overflow: hidden !important;
+} */
+div.prism-editor-wrapper {
+  max-width: 200px;
 }
 .my-editor {
   width: inherit;
