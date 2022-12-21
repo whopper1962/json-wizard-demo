@@ -700,6 +700,8 @@ export default {
   font-size: 12px;
   position: relative;
   overflow-y: auto;
+  overflow-x: scroll;
+  width: 65vh;
   height: 700px;
   box-sizing: border-box;
   border-collapse:separate;
@@ -721,11 +723,16 @@ export default {
 }
 .sticky-table td {
   height: 1px;
+  width: 100px;
 }
 .garbage-button {
+  /* width: 2.3em !important; */
   text-align: center;
   height: 100%;
 }
+/* .delete-row-button-area {
+  width: 2.3em !important;
+} */
 /* .garbage-button-area {
   width: 1px !important;
 } */
