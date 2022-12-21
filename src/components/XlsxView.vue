@@ -94,7 +94,7 @@
         <table class="xlsx-table" border="5">
           <thead>
             <tr>
-              <td class="bgc-data"></td>
+              <th class="bgc-data col1-top bg-yellow"></th>
               <td
                 class="bgc-data"
                 v-for="(num, index) in keyOrderArr"
@@ -111,7 +111,7 @@
               </td>
             </tr>
             <tr>
-              <td class="bgc-data"></td>
+              <th class="bgc-data col1 bg-yellow"></th>
               <td
                 class="bgc-data"
                 v-for="num of selectedSheetMaxLen"
@@ -127,7 +127,7 @@
               </td>
             </tr>
             <tr>
-              <th></th>
+              <th class="bgc-data col1"></th>
               <th
                 v-for="num of selectedSheetMaxLen"
                 :key="`num_${num}`"
@@ -145,7 +145,7 @@
                 'excluded-row': excludedRows.includes(rowIndex)
               }"
             >
-              <td class="delete-row-button-area">
+              <th class="delete-row-button-area col1">
                 <button
                   class="garbage-button"
                   v-if="excludedRows.includes(rowIndex)"
@@ -160,7 +160,7 @@
                 >
                   <font-awesome-icon icon="fa-solid fa-trash" />
                 </button>
-              </td>
+              </th>
               <td
                 class="background-color-white"
                 v-for="(val, index) in row"
@@ -677,6 +677,19 @@ export default {
   height: 92%;
   padding: 0px 10px 10px 10px;
 }
+.col1-top {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  background-color: gray;
+}
+.col1 {
+  position: sticky;
+  left: 0;
+  z-index: 4;
+  background-color: pink;
+}
 .xlsx-contents-inner {
   /* font-size: 12px; */
   /* border: solid black; */
@@ -738,6 +751,7 @@ export default {
 } */
 .bgc-data {
   background-color: rgb(255, 188, 79);
+  width: 2.5em;
 }
 .xlsx-conversion-data-area {
   height: 100%;
@@ -821,6 +835,9 @@ export default {
   margin: auto;
   width: 80%;
   height: 11.2rem;
+}
+.bg-yellow {
+  background-color: rgb(255, 188, 79) !important;
 }
 .xlsx-to-json-inner {
   position: absolute;
